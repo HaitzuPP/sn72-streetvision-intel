@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SN72 · JV Structure · Token Intelligence</title>
+<meta name="description" content="How SN72 (StreetVision by NATIX) owner emission is distributed under a joint venture between NATIX (operating company) and Yuma Group (DCG).">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--amber:#e0a800;--gold:#d4a017;--gold-dim:color-mix(in srgb,#d4a017 15%,var(--bg));--purple:#a855f7}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--amber:#b7791f;--gold:#a37514;--gold-dim:color-mix(in srgb,#a37514 10%,#fff);--purple:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Arial,Helvetica,sans-serif;font-weight:700}
+a{color:inherit}
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{max-width:1000px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700}
+.nav-brand svg{width:26px;height:26px;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.5px;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.theme-toggle,.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.3rem .55rem;border-radius:6px;font-size:.7rem;font-family:inherit;transition:all .2s}
+.theme-toggle:hover,.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+main{flex:1;width:100%;max-width:1000px;margin:0 auto;padding:2.4rem 1.5rem 3rem}
+.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.8rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.status{font-size:.62rem;color:var(--text-muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
+.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
+.hero-title{font-size:clamp(28px,6vw,44px);letter-spacing:-.02em;line-height:1.05;margin-bottom:.7rem}
+.hero-title .accent{color:var(--accent)}
+.verdict{font-size:15px;color:var(--text-sec);max-width:780px;line-height:1.65}
+.verdict b{color:var(--text);font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 1.6rem}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem}
+.kpi .k{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:.5rem}
+.kpi .v{font-size:2rem;font-weight:700;line-height:1}
+.kpi .s{font-size:.78rem;margin-top:.45rem;color:var(--text-muted)}
+.sec-h{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin:2.2rem 0 .9rem;font-weight:700}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;margin-bottom:1.1rem}
+.flowcard{padding:1.6rem 1.2rem}
+#flow{display:block;width:100%;height:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.1rem}
+.party{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem}
+.party.natix{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.party.yuma{border-color:color-mix(in srgb,var(--gold) 40%,transparent)}
+.party .role{font-size:.62rem;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:.35rem}
+.party.natix .role{color:var(--accent)}.party.yuma .role{color:var(--gold)}
+.party h3{font-size:1.15rem;margin-bottom:.5rem}
+.party .desc{font-size:.82rem;color:var(--text-sec);line-height:1.55;margin-bottom:.9rem}
+.party .onchain{font-size:.76rem;color:var(--text-muted);margin-bottom:.9rem}
+.wrow{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;padding:.4rem 0;border-top:1px solid var(--border);font-size:.78rem}
+.wrow .lab{color:var(--text-sec)}
+.addr{color:var(--text-sec);text-decoration:none;font-variant-numeric:tabular-nums}.addr:hover{color:var(--accent)}
+.pill{display:inline-block;font-size:.7rem;padding:.15rem .55rem;border-radius:20px;border:1px solid var(--border);color:var(--text-sec)}
+.pill.g{border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent)}
+.pill.gold{border-color:color-mix(in srgb,var(--gold) 45%,transparent);color:var(--gold)}
+.mtable{width:100%;border-collapse:collapse;font-size:.84rem}
+.mtable th{text-align:right;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;padding:.5rem .5rem;border-bottom:1px solid var(--border)}
+.mtable th:first-child{text-align:left}
+.mtable td{padding:.5rem .5rem;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap;font-variant-numeric:tabular-nums}
+.mtable td:first-child{text-align:left;white-space:normal}
+.mtable tr:last-child td{border-bottom:none}
+.note{font-size:.78rem;color:var(--text-muted);line-height:1.6}
+.note b{color:var(--text-sec)}
+.note ul{margin:.4rem 0 0 1.1rem}.note li{margin:.3rem 0}
+footer{border-top:1px solid var(--border);padding:1.8rem 1.5rem;text-align:center;margin-top:2rem}
+.footer-text{font-size:.72rem;color:var(--text-muted)}
+.footer-text a{color:var(--text-sec);text-decoration:none}.footer-text a:hover{color:var(--accent)}
+@media(max-width:700px){.kpis{grid-template-columns:1fr;gap:.7rem}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><nav>
+<a href="index.html" class="nav-brand">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+SN72 · StreetVision
+</a>
+<div class="nav-links">
+<a href="index.html" class="nav-link">OVERVIEW</a>
+<a href="wallets.html" class="nav-link">WALLETS</a>
+<a href="analytics.html" class="nav-link">ANALYTICS</a>
+<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+<a href="structure.html" class="nav-link active">STRUCTURE</a>
+<button class="rbtn" onclick="manualRefresh()">↻</button>
+<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+</div>
+</nav></header>
+
+<main>
+<div class="hero-label"><span>JV Structure · SN72 Owner Emission</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span></div>
+<h1 class="hero-title">The joint venture behind <span class="accent">StreetVision</span></h1>
+<p class="verdict" id="verdict"></p>
+
+<div class="kpis" id="kpis"></div>
+
+<div class="sec-h">Owner emission flow</div>
+<div class="card flowcard"><svg id="flow" viewBox="0 0 760 426" preserveAspectRatio="xMidYMid meet" role="img" aria-label="SN72 owner emission distribution flow"></svg></div>
+
+<div class="sec-h">JV parties &amp; tagged wallets</div>
+<div class="grid2" id="parties"></div>
+
+<div class="sec-h">Owner emission economics</div>
+<div class="card"><table class="mtable" id="econ"></table></div>
+
+<div class="sec-h">Notes &amp; caveats</div>
+<div class="card note" id="notes"></div>
+</main>
+
+<footer><p class="footer-text">SN72 · StreetVision JV Structure, a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Data via tao.com &amp; taostats; JV terms per Pylon. Not financial advice.</p></footer>
+
+<script>(function(){var t=localStorage.getItem('sn72-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<script>
+function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn72-theme',t);if(DATA)render(DATA,LIVE)}
+const FALLBACK={"generated_at":"2026-07-12T09:54:01Z","tao":{"price_usd":210.32},"subnet":{"price_tao":0.003216,"price_usd":0.6764},"emissions":{"total":{"tao_day":23.151},"owner":{"tao_day":4.167,"usd_day":876,"usd_year":319899},"validator":{"tao_day":9.492},"miner":{"tao_day":9.492},"incentive_burn_pct":100},"holders":[{"coldkey":"5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv","alpha":54844,"share_pct":1.12}],"validators":[{"name":"Yuma, a DCG Company","dominance_pct":5.66,"stake_alpha":70130}]};
+
+// JV party facts (commercial structure per Pylon; wallet addresses verified on-chain)
+const NATIX_CK="5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv";
+const NATIX_HK="5Fmvr2VJs9EpyR5NbNpLTKgEXS8fRnQA6F349xqswsz6VL88";
+const YUMA_CK="5E9fVY1jexCNVMjd2rdBsAxeamFGEMfzHcyTn2fHgdHeYc5p";
+
+let DATA=null, LIVE=false;
+const usdC=n=>{const a=Math.abs(n);return a>=1e6?'$'+(a/1e6).toFixed(2)+'M':a>=1e3?'$'+(a/1e3).toFixed(1)+'k':'$'+a.toFixed(0)};
+const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+const shortA=a=>a.slice(0,8)+'…'+a.slice(-6);
+const tsUrl=a=>'https://taostats.io/account/'+a;
+
+function box(x,y,w,h,opt){opt=opt||{};const st=opt.stroke||'var(--border-hover)';const fill=opt.fill||'var(--bg-card)';
+  let s=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${fill}" stroke="${st}" stroke-width="1.5"/>`;
+  const cx=x+w/2;let ty=y+ (opt.sub?h/2-8:h/2-4);
+  s+=`<text x="${cx}" y="${ty}" text-anchor="middle" font-size="${opt.fs||13}" font-weight="700" fill="${opt.tc||'var(--text)'}">${opt.title}</text>`;
+  if(opt.sub)s+=`<text x="${cx}" y="${ty+16}" text-anchor="middle" font-size="10.5" fill="var(--text-muted)">${opt.sub}</text>`;
+  return s;}
+function arrow(x1,y1,x2,y2,label,col){col=col||'var(--border-hover)';
+  let s=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="1.6" marker-end="url(#ah)"/>`;
+  if(label)s+=`<text x="${(x1+x2)/2+6}" y="${(y1+y2)/2-3}" font-size="10" fill="var(--text-muted)">${label}</text>`;
+  return s;}
+
+function flow(d){
+  const e=d.emissions, sub=d.subnet;
+  const ownerTao=e.owner.tao_day, ownerUsd=e.owner.usd_day, ownerAlpha=ownerTao/sub.price_tao;
+  const g=document.getElementById('flow');
+  const defs=`<defs><marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="var(--border-hover)"/></marker></defs>`;
+  let s='';
+  // top: subnet emission
+  s+=box(250,14,260,54,{title:'Subnet emission',sub:num(e.total.tao_day,1)+' τ/day  ·  '+num(e.total.tao_day/sub.price_tao,0)+' α/day'});
+  // three split arrows
+  s+=arrow(330,68,150,120,'','var(--border-hover)');
+  s+=arrow(380,68,380,120,'','var(--accent)');
+  s+=arrow(430,68,610,120,'','var(--border-hover)');
+  s+=box(70,120,170,50,{title:'Miners 41%',sub:num(e.miner.tao_day,1)+' τ · burned',tc:'var(--text-sec)'});
+  s+=box(295,120,170,54,{title:'Owner 18%',sub:num(ownerTao,2)+' τ/day · '+usdC(ownerUsd)+'/day',stroke:'var(--accent)',tc:'var(--accent)'});
+  s+=box(520,120,170,50,{title:'Validators 41%',sub:num(e.validator.tao_day,1)+' τ/day',tc:'var(--text-sec)'});
+  // owner -> owner key (NATIX)
+  s+=arrow(380,174,380,208,'','var(--accent)');
+  s+=box(255,208,250,56,{title:'Owner key · NATIX',sub:'operating company · '+num(ownerAlpha,0)+' α/day accrues',stroke:'var(--accent)'});
+  // JV split (undisclosed) -> two parties
+  s+=arrow(330,264,205,320,'','var(--accent)');
+  s+=arrow(430,264,555,320,'','var(--gold)');
+  s+=`<text x="380" y="298" text-anchor="middle" font-size="10.5" fill="var(--amber)">JV split · undisclosed</text>`;
+  s+=box(70,320,270,74,{title:'NATIX',sub:'operating company · retains share',stroke:'var(--accent)',tc:'var(--accent)'});
+  s+=box(420,320,270,74,{title:'Yuma Group (DCG)',sub:'validation & infrastructure',stroke:'var(--gold)',tc:'var(--gold)'});
+  // small labels under party boxes
+  s+=`<text x="205" y="410" text-anchor="middle" font-size="10" fill="var(--text-muted)">owner key ${shortA(NATIX_CK)}</text>`;
+  s+=`<text x="555" y="410" text-anchor="middle" font-size="10" fill="var(--text-muted)">validator ${shortA(YUMA_CK)}</text>`;
+  g.innerHTML=defs+s;
+}
+
+function parties(d){
+  const own=(d.holders||[]).find(h=>h.coldkey===NATIX_CK)||{alpha:0,share_pct:0};
+  const yv=(d.validators||[]).find(v=>/yuma/i.test(v.name||''))||{dominance_pct:0,stake_alpha:0};
+  const e=d.emissions;
+  document.getElementById('parties').innerHTML=`
+  <div class="party natix">
+    <div class="role">Operating company</div>
+    <h3>NATIX <span class="pill g">owner key</span></h3>
+    <div class="desc">Runs StreetVision, NATIX's crowdsourced mapping and street-imagery data network, and operates SN72. NATIX holds the subnet owner key, so the 18% owner emission accrues to it before the JV split.</div>
+    <div class="onchain">On-chain: registered SN72 owner · holds <b>${num(own.alpha,0)} α</b> (${own.share_pct.toFixed(2)}% of supply) · receives <b>${num(e.owner.tao_day,2)} τ/day</b> owner emission.</div>
+    <div class="wrow"><span class="lab">Owner coldkey</span><a class="addr" href="${tsUrl(NATIX_CK)}" target="_blank" rel="noopener" title="${NATIX_CK}">${shortA(NATIX_CK)} ↗</a></div>
+    <div class="wrow"><span class="lab">Owner hotkey</span><a class="addr" href="${tsUrl(NATIX_HK)}" target="_blank" rel="noopener" title="${NATIX_HK}">${shortA(NATIX_HK)} ↗</a></div>
+  </div>
+  <div class="party yuma">
+    <div class="role">Validation & infrastructure</div>
+    <h3>Yuma Group <span class="pill gold">DCG ◆</span></h3>
+    <div class="desc">Digital Currency Group's Bittensor arm. In the JV, Yuma provides validation, infrastructure and incentive design, and takes a share of the owner emission alongside its validator rewards.</div>
+    <div class="onchain">On-chain: SN72 validator · <b>${yv.dominance_pct.toFixed(2)}% dominance</b> · <b>${num(yv.stake_alpha,0)} α</b> staked. Validator emission is earned separately from the owner-emission share.</div>
+    <div class="wrow"><span class="lab">Yuma coldkey</span><a class="addr" href="${tsUrl(YUMA_CK)}" target="_blank" rel="noopener" title="${YUMA_CK}">${shortA(YUMA_CK)} ↗</a></div>
+  </div>`;
+}
+
+function econ(d){
+  const e=d.emissions,s=d.subnet;
+  const rows=[
+    ['Owner emission (18% of subnet)', num(e.owner.tao_day,2)+' τ/day', num(e.owner.tao_day/s.price_tao,0)+' α/day', usdC(e.owner.usd_day)+'/day'],
+    ['Annualised (notional)', num(e.owner.tao_day*365,0)+' τ/yr', num(e.owner.tao_day/s.price_tao*365,0)+' α/yr', usdC(e.owner.usd_year)+'/yr'],
+    ['NATIX share', 'n/a', 'n/a', 'undisclosed'],
+    ['Yuma Group share', 'n/a', 'n/a', 'undisclosed'],
+  ];
+  document.getElementById('econ').innerHTML=`<thead><tr><th>Flow</th><th>TAO</th><th>Alpha</th><th>USD (notional)</th></tr></thead><tbody>`+
+    rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')+`</tbody>`;
+}
+
+function render(d,live){
+  DATA=d;LIVE=live;
+  const dot=document.getElementById('dot'),st=document.getElementById('statusTxt');
+  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
+  dot.className='dot'+(live?'':' snap');st.textContent=(live?'LIVE · ':'SNAPSHOT · ')+t;
+  const e=d.emissions;
+  document.getElementById('verdict').innerHTML=`StreetVision (SN72) runs as a joint venture. <b>NATIX</b>, the operating company, holds the subnet owner key and captures the <b>18% owner emission</b> (~<b>${num(e.owner.tao_day,2)} τ/day</b>, ~${usdC(e.owner.usd_year)}/yr notional). Under the JV that owner emission is shared with <b>Yuma Group</b> (DCG), the validation and infrastructure partner. The split between the two is not publicly disclosed.`;
+  document.getElementById('kpis').innerHTML=[
+    ['Owner emission', num(e.owner.tao_day,2)+'<span style="font-size:.9rem;color:var(--text-muted)"> τ/day</span>', usdC(e.owner.usd_day)+'/day to the JV'],
+    ['Annualised', usdC(e.owner.usd_year), 'notional owner emission /yr'],
+    ['Owner share', '18%', 'of subnet emission · validators 41% · miners 41% burned'],
+  ].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+  flow(d);parties(d);econ(d);
+  document.getElementById('notes').innerHTML=`
+  <ul>
+    <li><b>Split is undisclosed.</b> The JV terms between NATIX and Yuma Group are commercial; no fixed percentage is published, so per-party USD is not computed here.</li>
+    <li><b>Owner key = NATIX.</b> The subnet owner coldkey (${shortA(NATIX_CK)}) is NATIX's; owner emission accrues to its owner hotkey as alpha, not as TAO transfers.</li>
+    <li><b>No recurring on-chain split is visible.</b> The owner coldkey shows only funding transfers, so any distribution to Yuma likely settles off-chain or through staking, not as a periodic TAO payment.</li>
+    <li><b>Yuma's on-chain SN72 income is validator emission</b> on its own stake (shown above), which is distinct from, and additional to, any owner-emission share under the JV.</li>
+    <li>USD figures are notional, at the current alpha and TAO prices; emissions show 100% miner-incentive burn, per tao.com.</li>
+  </ul>`;
+}
+
+function loadData(){
+  try{
+    if(typeof fetch!=='function'){render(FALLBACK,false);return;}
+    fetch('./data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>render(d,true)).catch(()=>render(FALLBACK,false));
+  }catch(e){render(FALLBACK,false);}
+}
+function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
+loadData();
+</script>
+</body>
+</html>

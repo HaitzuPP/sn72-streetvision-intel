@@ -30,10 +30,11 @@ TARGETS  = ()             # no pinned comps for SN72 — show rank neighbours on
 NEIGHBORS = 3             # ranks above/below SN72 to show
 
 # Manual labels: coldkey -> (label, highlight, is_validator). highlight: green|purple|gold
-# SN72 owner coldkey (taostats Get Subnet: netuid 72 owner.ss58). Other wallets are
-# tagged automatically from taostats validator/identity/exchange maps below.
+# The owner coldkey belongs to NATIX, the operating company, which holds the subnet owner
+# key and shares owner emission with Yuma Group (DCG) under a JV — see structure.html.
 MANUAL_LABELS = {
-    "5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv": ("SN72 owner", "green", False),
+    "5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv": ("NATIX (owner)", "green", False),
+    "5E9fVY1jexCNVMjd2rdBsAxeamFGEMfzHcyTn2fHgdHeYc5p": ("Yuma Group", "gold", True),
 }
 
 
