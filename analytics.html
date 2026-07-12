@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SN72 · Wallet Analytics — Top Holders</title>
+<meta name="description" content="SN72 (StreetVision) wallet analytics: portfolio summary, full trade ledger, purchase price and PnL for the largest alpha holders.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 15%,var(--bg));--amber:#e0a800;--gold:#d4a017;--purple:#a855f7}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 10%,#fff);--amber:#b7791f;--gold:#a37514;--purple:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Arial,Helvetica,sans-serif;font-weight:700}
+a{color:inherit}
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{max-width:1040px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700}
+.nav-brand svg{width:26px;height:26px;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.3rem}
+.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.5px;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.theme-toggle,.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.3rem .55rem;border-radius:6px;font-size:.7rem;font-family:inherit;transition:all .2s}
+.theme-toggle:hover,.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+main{flex:1;width:100%;max-width:1040px;margin:0 auto;padding:2.2rem 1.5rem 3rem}
+.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.8rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.status{font-size:.62rem;color:var(--text-muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
+.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
+.hero-title{font-size:clamp(26px,5vw,40px);letter-spacing:-.02em;line-height:1.05;margin-bottom:.6rem}
+.hero-sub{font-size:14px;color:var(--text-sec);max-width:720px;line-height:1.65}
+.tabs{display:flex;gap:.5rem;margin:1.6rem 0 1.4rem;flex-wrap:wrap}
+.tab{padding:.5rem 1rem;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-sec);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit}
+.tab:hover{border-color:var(--border-hover);color:var(--text)}
+.tab.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.wmeta{font-size:.75rem;color:var(--text-muted);margin-bottom:1.2rem}
+.wmeta a{color:var(--text-sec);text-decoration:none}.wmeta a:hover{color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem}
+.kpi{background:var(--bg-card);padding:1.05rem 1.15rem}
+.kpi .k{font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.4rem}
+.kpi .v{font-size:1.45rem;font-weight:700;line-height:1.05}
+.kpi .s{font-size:.72rem;margin-top:.3rem;color:var(--text-muted)}
+.up{color:var(--accent)}.down{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.4rem}
+.panel{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem}
+.panel h3{font-size:.9rem;margin-bottom:.15rem}
+.panel .cap{font-size:.72rem;color:var(--text-muted);margin-bottom:.7rem}
+.kv{display:flex;justify-content:space-between;padding:.45rem 0;border-top:1px solid var(--border);font-size:.85rem}
+.kv:first-of-type{border-top:none}.kv .k{color:var(--text-sec)}.kv .v{font-weight:600}
+svg{display:block;width:100%;height:auto}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:520px}
+thead th{text-align:right;padding:.55rem .8rem;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card)}
+thead th:first-child,thead th:nth-child(2){text-align:left}
+tbody td{padding:.5rem .8rem;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+tbody td:first-child,tbody td:nth-child(2){text-align:left}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-card)}
+.badge{font-size:.62rem;padding:.1rem .45rem;border-radius:4px;font-weight:700}
+.badge.buy{background:var(--accent);color:#001b0e}.badge.sell{background:var(--red);color:#fff}
+h3.sec{font-size:.95rem;margin:.4rem 0 .6rem}
+footer{border-top:1px solid var(--border);padding:1.8rem 1.5rem;text-align:center;margin-top:2rem}
+.footer-text{font-size:.72rem;color:var(--text-muted)}
+.footer-text a{color:var(--text-sec);text-decoration:none}.footer-text a:hover{color:var(--accent)}
+@media(max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><nav>
+<a href="index.html" class="nav-brand">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 13l3-3 3 2 4-6"/></svg>
+SN72 · Wallet Analytics
+</a>
+<div class="nav-links">
+<a href="index.html" class="nav-link">OVERVIEW</a>
+<a href="wallets.html" class="nav-link">WALLETS</a>
+<a href="analytics.html" class="nav-link active">ANALYTICS</a>
+<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+<button class="rbtn" onclick="manualRefresh()">↻</button>
+<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+</div>
+</nav></header>
+
+<main>
+<div class="hero-label"><span>Wallet Analytics · SN72</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span></div>
+<h1 class="hero-title">Portfolio &amp; PnL</h1>
+<p class="hero-sub">Every SN72 alpha trade, purchase price, and position PnL for the largest holders. PnL is cash-flow basis: what came out (sold + still held) minus what went in (bought). Rewards/emissions count as gains.</p>
+<div class="tabs" id="tabs"></div>
+<div id="wallet"></div>
+</main>
+
+<footer><p class="footer-text">SN72 Wallet Analytics — a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Trades via tao.com (SN72 stake add/remove); prices tao.com. Not financial advice.</p></footer>
+
+<script>(function(){var t=localStorage.getItem('sn72-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<script>
+const FALLBACK = {"generated_at":"2026-07-12T09:54:38Z","price_tao":0.003215466,"price_usd":0.6764423209729807,"tao_usd":210.3206750504633,"source":"taostats dTAO delegation events (SN72 stake add/remove) + executed USD. PnL on a cash-flow basis (rewards/emissions count as gains).","wallets":[{"name":"Validator","key":"validator","coldkeys":["5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh"],"note":"rank #1 \u00b7 full history","current_alpha":421322.591874875,"current_value_usd":285000.43192619237,"n_buys":180,"n_sells":44,"n_trades":224,"alpha_bought":638986.961105348,"alpha_sold":249126.437097647,"invested_usd":680002,"proceeds_usd":222316,"invested_tao":2267.05,"proceeds_tao":856.403283916,"avg_buy_price_usd":1.064187599107973,"realized_pnl_usd":-42801.264969268406,"unrealized_pnl_usd":-129884.30310453923,"total_pnl_usd":-172685.56807380763,"roi_pct":-25.394861790672323,"first_trade":"2025-08-05","monthly":[{"month":"2025-08","buy_usd":7439.0,"sell_usd":7634.0,"avg_buy_usd":1.2705243118622973},{"month":"2026-05","buy_usd":623784.0,"sell_usd":107018.0,"avg_buy_usd":1.0926980703698155},{"month":"2026-06","buy_usd":33988.0,"sell_usd":107664.0,"avg_buy_usd":0.8532878748848137},{"month":"2026-07","buy_usd":14791.0,"sell_usd":0.0,"avg_buy_usd":0.659304403915551}],"recent":[{"ts":"2026-07-08","side":"buy","alpha":13595.1,"price_usd":0.64,"usd":8766},{"ts":"2026-07-05","side":"buy","alpha":8839.1,"price_usd":0.68,"usd":6025},{"ts":"2026-06-30","side":"sell","alpha":1510.8,"price_usd":0.68,"usd":1028},{"ts":"2026-06-30","side":"sell","alpha":556.3,"price_usd":0.68,"usd":379},{"ts":"2026-06-30","side":"sell","alpha":3114.9,"price_usd":0.68,"usd":2123},{"ts":"2026-06-30","side":"sell","alpha":6442.5,"price_usd":0.67,"usd":4348},{"ts":"2026-06-28","side":"sell","alpha":19990.0,"price_usd":0.68,"usd":13595},{"ts":"2026-06-28","side":"buy","alpha":1197.6,"price_usd":0.68,"usd":820},{"ts":"2026-06-28","side":"sell","alpha":3803.5,"price_usd":0.69,"usd":2609},{"ts":"2026-06-28","side":"sell","alpha":1728.6,"price_usd":0.69,"usd":1189},{"ts":"2026-06-28","side":"sell","alpha":4749.4,"price_usd":0.68,"usd":3252},{"ts":"2026-06-28","side":"sell","alpha":7336.9,"price_usd":0.69,"usd":5070},{"ts":"2026-06-23","side":"sell","alpha":6198.6,"price_usd":0.71,"usd":4391},{"ts":"2026-06-23","side":"sell","alpha":7676.3,"price_usd":0.72,"usd":5519},{"ts":"2026-06-22","side":"sell","alpha":6176.5,"price_usd":0.75,"usd":4642},{"ts":"2026-06-21","side":"sell","alpha":6166.7,"price_usd":0.76,"usd":4663},{"ts":"2026-06-21","side":"sell","alpha":6136.2,"price_usd":0.76,"usd":4650},{"ts":"2026-06-17","side":"sell","alpha":6934.7,"price_usd":0.82,"usd":5702},{"ts":"2026-06-16","side":"sell","alpha":7894.9,"price_usd":0.85,"usd":6726},{"ts":"2026-06-11","side":"sell","alpha":4997.5,"price_usd":0.68,"usd":3407},{"ts":"2026-06-05","side":"sell","alpha":8595.9,"price_usd":0.64,"usd":5492},{"ts":"2026-06-02","side":"buy","alpha":30928.7,"price_usd":0.85,"usd":26382},{"ts":"2026-06-02","side":"sell","alpha":20758.6,"price_usd":0.85,"usd":17589},{"ts":"2026-06-02","side":"sell","alpha":13197.4,"price_usd":0.86,"usd":11290},{"ts":"2026-06-01","side":"buy","alpha":6626.9,"price_usd":0.88,"usd":5846},{"ts":"2026-06-01","side":"buy","alpha":1078.7,"price_usd":0.87,"usd":940},{"ts":"2026-05-31","side":"buy","alpha":361.4,"price_usd":0.87,"usd":314},{"ts":"2026-05-31","side":"buy","alpha":3420.3,"price_usd":0.89,"usd":3034},{"ts":"2026-05-30","side":"buy","alpha":3209.9,"price_usd":0.87,"usd":2783},{"ts":"2026-05-29","side":"buy","alpha":2018.1,"price_usd":0.88,"usd":1775},{"ts":"2026-05-26","side":"buy","alpha":3013.9,"price_usd":0.98,"usd":2955},{"ts":"2026-05-26","side":"buy","alpha":2890.5,"price_usd":0.99,"usd":2861},{"ts":"2026-05-26","side":"buy","alpha":4424.7,"price_usd":0.99,"usd":4376},{"ts":"2026-05-26","side":"buy","alpha":2391.0,"price_usd":0.99,"usd":2363},{"ts":"2026-05-26","side":"buy","alpha":3662.2,"price_usd":0.99,"usd":3628},{"ts":"2026-05-25","side":"sell","alpha":4997.5,"price_usd":0.99,"usd":4970},{"ts":"2026-05-25","side":"sell","alpha":9995.0,"price_usd":1.0,"usd":10017},{"ts":"2026-05-23","side":"buy","alpha":8127.6,"price_usd":0.93,"usd":7519},{"ts":"2026-05-22","side":"buy","alpha":370.2,"price_usd":1.0,"usd":369},{"ts":"2026-05-22","side":"buy","alpha":2851.2,"price_usd":1.0,"usd":2839}]},{"name":"Wallet #2","key":"wallet2","coldkeys":["5Hj8hTzdJirY4o1W4E8ZYu3iVgSViaDAkDQXf6xew7fQH1ay"],"note":"rank #2 \u00b7 full history","current_alpha":314192.6926202,"current_value_usd":212533.2342287584,"n_buys":10,"n_sells":0,"n_trades":10,"alpha_bought":274989.079999999,"alpha_sold":0,"invested_usd":240275,"proceeds_usd":0,"invested_tao":960.377328477,"proceeds_tao":0,"avg_buy_price_usd":0.8737619690207366,"realized_pnl_usd":0.0,"unrealized_pnl_usd":-27741.765771241597,"total_pnl_usd":-27741.765771241597,"roi_pct":-11.54583946363192,"first_trade":"2025-11-13","monthly":[{"month":"2025-11","buy_usd":27071.0,"sell_usd":0.0,"avg_buy_usd":0.7777241821341492},{"month":"2026-01","buy_usd":64269.0,"sell_usd":0.0,"avg_buy_usd":0.9364634556461877},{"month":"2026-02","buy_usd":63.0,"sell_usd":0.0,"avg_buy_usd":0.63},{"month":"2026-03","buy_usd":83.0,"sell_usd":0.0,"avg_buy_usd":0.83},{"month":"2026-04","buy_usd":122.0,"sell_usd":0.0,"avg_buy_usd":1.22},{"month":"2026-05","buy_usd":124436.0,"sell_usd":0.0,"avg_buy_usd":0.9155768886366957},{"month":"2026-06","buy_usd":24231.0,"sell_usd":0.0,"avg_buy_usd":0.6856208630656881}],"recent":[{"ts":"2026-06-09","side":"buy","alpha":35341.7,"price_usd":0.69,"usd":24231},{"ts":"2026-05-19","side":"buy","alpha":135809.9,"price_usd":0.92,"usd":124327},{"ts":"2026-05-14","side":"buy","alpha":100.0,"price_usd":1.09,"usd":109},{"ts":"2026-04-09","side":"buy","alpha":100.0,"price_usd":1.22,"usd":122},{"ts":"2026-03-10","side":"buy","alpha":100.0,"price_usd":0.83,"usd":83},{"ts":"2026-02-10","side":"buy","alpha":100.0,"price_usd":0.63,"usd":63},{"ts":"2026-01-22","side":"buy","alpha":68529.5,"price_usd":0.94,"usd":64166},{"ts":"2026-01-13","side":"buy","alpha":100.0,"price_usd":1.03,"usd":103},{"ts":"2025-11-20","side":"buy","alpha":34708.0,"price_usd":0.78,"usd":26986},{"ts":"2025-11-13","side":"buy","alpha":100.0,"price_usd":0.85,"usd":85}]},{"name":"Wallet #3","key":"wallet3","coldkeys":["5CksQZPhC2LWufmCf4zc7z4muxwywhaQpz5aYcFS4bTJWfjo"],"note":"rank #3 \u00b7 full history","current_alpha":246311.914307104,"current_value_usd":166615.80299719537,"n_buys":6,"n_sells":44,"n_trades":50,"alpha_bought":184700.28095306098,"alpha_sold":44718.44788807,"invested_usd":206409,"proceeds_usd":42627,"invested_tao":587.815363049,"proceeds_tao":133.003526483,"avg_buy_price_usd":1.117534845831967,"realized_pnl_usd":-7347.423766439155,"unrealized_pnl_usd":10181.226763634506,"total_pnl_usd":2833.8029971953656,"roi_pct":1.3729067032907314,"first_trade":"2025-07-23","monthly":[{"month":"2025-07","buy_usd":45960.0,"sell_usd":0.0,"avg_buy_usd":1.5320152714825812},{"month":"2025-09","buy_usd":124266.0,"sell_usd":9536.0,"avg_buy_usd":1.0595584465436965},{"month":"2025-10","buy_usd":36087.0,"sell_usd":9645.0,"avg_buy_usd":0.9669704833780595},{"month":"2025-11","buy_usd":96.0,"sell_usd":10159.0,"avg_buy_usd":0.96},{"month":"2025-12","buy_usd":0.0,"sell_usd":2660.0,"avg_buy_usd":0.0},{"month":"2026-01","buy_usd":0.0,"sell_usd":5356.0,"avg_buy_usd":0.0},{"month":"2026-05","buy_usd":0.0,"sell_usd":4645.0,"avg_buy_usd":0.0},{"month":"2026-06","buy_usd":0.0,"sell_usd":626.0,"avg_buy_usd":0.0}],"recent":[{"ts":"2026-06-26","side":"sell","alpha":931.2,"price_usd":0.67,"usd":626},{"ts":"2026-05-27","side":"sell","alpha":860.4,"price_usd":0.97,"usd":831},{"ts":"2026-05-26","side":"sell","alpha":1158.1,"price_usd":0.98,"usd":1136},{"ts":"2026-05-15","side":"sell","alpha":839.9,"price_usd":1.02,"usd":858},{"ts":"2026-05-14","side":"sell","alpha":839.1,"price_usd":1.05,"usd":885},{"ts":"2026-05-12","side":"sell","alpha":828.5,"price_usd":1.13,"usd":935},{"ts":"2026-01-26","side":"sell","alpha":962.9,"price_usd":0.97,"usd":932},{"ts":"2026-01-09","side":"sell","alpha":908.2,"price_usd":0.94,"usd":853},{"ts":"2026-01-08","side":"sell","alpha":908.2,"price_usd":0.88,"usd":803},{"ts":"2026-01-07","side":"sell","alpha":1540.0,"price_usd":0.9,"usd":1384},{"ts":"2026-01-07","side":"sell","alpha":1537.8,"price_usd":0.9,"usd":1384},{"ts":"2025-12-25","side":"sell","alpha":948.9,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":948.0,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":947.1,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":946.3,"price_usd":0.7,"usd":665},{"ts":"2025-11-23","side":"sell","alpha":782.0,"price_usd":0.73,"usd":571},{"ts":"2025-11-23","side":"sell","alpha":1171.8,"price_usd":0.73,"usd":856},{"ts":"2025-11-13","side":"sell","alpha":1183.0,"price_usd":0.89,"usd":1057},{"ts":"2025-11-11","side":"sell","alpha":1962.3,"price_usd":0.95,"usd":1871},{"ts":"2025-11-11","side":"buy","alpha":100.0,"price_usd":0.96,"usd":96},{"ts":"2025-11-06","side":"sell","alpha":1550.3,"price_usd":0.96,"usd":1484},{"ts":"2025-11-06","side":"sell","alpha":1932.3,"price_usd":0.98,"usd":1898},{"ts":"2025-11-05","side":"sell","alpha":1156.1,"price_usd":1.03,"usd":1195},{"ts":"2025-11-04","side":"sell","alpha":1154.4,"price_usd":1.06,"usd":1227},{"ts":"2025-10-28","side":"sell","alpha":1148.4,"price_usd":1.16,"usd":1331},{"ts":"2025-10-27","side":"sell","alpha":1908.5,"price_usd":1.05,"usd":1998},{"ts":"2025-10-20","side":"sell","alpha":1128.9,"price_usd":1.16,"usd":1308},{"ts":"2025-10-16","side":"sell","alpha":742.5,"price_usd":1.04,"usd":770},{"ts":"2025-10-15","side":"sell","alpha":741.8,"price_usd":1.2,"usd":888},{"ts":"2025-10-14","side":"sell","alpha":739.1,"price_usd":1.12,"usd":829},{"ts":"2025-10-13","side":"sell","alpha":737.5,"price_usd":1.12,"usd":825},{"ts":"2025-10-08","side":"buy","alpha":37319.7,"price_usd":0.97,"usd":36087},{"ts":"2025-10-07","side":"sell","alpha":1059.8,"price_usd":0.98,"usd":1040},{"ts":"2025-10-03","side":"sell","alpha":691.9,"price_usd":0.95,"usd":656},{"ts":"2025-09-26","side":"sell","alpha":677.8,"price_usd":0.9,"usd":609},{"ts":"2025-09-24","side":"sell","alpha":336.5,"price_usd":0.93,"usd":312},{"ts":"2025-09-24","side":"sell","alpha":100.0,"price_usd":0.93,"usd":93},{"ts":"2025-09-24","side":"sell","alpha":700.0,"price_usd":0.93,"usd":650},{"ts":"2025-09-24","side":"sell","alpha":700.0,"price_usd":0.93,"usd":651},{"ts":"2025-09-23","side":"sell","alpha":669.7,"price_usd":0.95,"usd":633}]}]};
+let DATA=null, SEL=0;
+function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn72-theme',t)}
+const usdC=n=>{const a=Math.abs(n),s=n<0?'-':'';return a>=1e6?s+'$'+(a/1e6).toFixed(2)+'M':a>=1e3?s+'$'+(a/1e3).toFixed(0)+'k':s+'$'+a.toFixed(0)};
+const usd4=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:n<10?4:0});
+const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+const shortA=a=>a.slice(0,6)+'…'+a.slice(-4);
+
+function monthBars(mo){
+  const W=520,H=190,padL=44,padB=24,padT=12;
+  const max=Math.max(1,...mo.map(m=>Math.max(m.buy_usd,m.sell_usd)));
+  const n=mo.length,gap=(W-padL-8)/Math.max(n,1),bw=gap*0.34,base=H-padB,ih=base-padT;
+  let bars='',lbl='';
+  mo.forEach((m,i)=>{
+    const x=padL+i*gap+gap*0.12;
+    const bh=m.buy_usd/max*ih, sh=m.sell_usd/max*ih;
+    bars+=`<rect x="${x.toFixed(1)}" y="${(base-bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,bh).toFixed(1)}" rx="1" fill="var(--accent)"><title>${m.month} bought ${usdC(m.buy_usd)}</title></rect>`;
+    bars+=`<rect x="${(x+bw+1).toFixed(1)}" y="${(base-sh).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,sh).toFixed(1)}" rx="1" fill="var(--red)"><title>${m.month} sold ${usdC(m.sell_usd)}</title></rect>`;
+    if(i%3===0||i===n-1)lbl+=`<text x="${(x+bw).toFixed(1)}" y="${H-7}" text-anchor="middle" font-size="8" fill="var(--text-muted)">${m.month.slice(2)}</text>`;
+  });
+  const g=[max,max/2].map(v=>`<text x="${padL-6}" y="${(base-v/max*ih+3).toFixed(1)}" text-anchor="end" font-size="8" fill="var(--text-muted)">${usdC(v)}</text><line x1="${padL}" y1="${(base-v/max*ih).toFixed(1)}" x2="${W-4}" y2="${(base-v/max*ih).toFixed(1)}" stroke="var(--border)" stroke-width="1"/>`).join('');
+  return `<svg viewBox="0 0 ${W} ${H}">${g}<line x1="${padL}" y1="${base}" x2="${W-4}" y2="${base}" stroke="var(--border-hover)"/>${bars}${lbl}</svg>`;
+}
+function costBar(w){
+  const W=520,H=90,x0=20,x1=W-20,y=44;
+  const lo=Math.min(w.avg_buy_price_usd,DATA.price_usd)*0.9, hi=Math.max(w.avg_buy_price_usd,DATA.price_usd)*1.1;
+  const X=p=>x0+(p-lo)/(hi-lo)*(x1-x0);
+  const ba=X(w.avg_buy_price_usd), nx=X(DATA.price_usd);
+  const under=DATA.price_usd<w.avg_buy_price_usd;
+  return `<svg viewBox="0 0 ${W} ${H}">
+   <line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="var(--border-hover)" stroke-width="2"/>
+   <line x1="${Math.min(ba,nx).toFixed(1)}" y1="${y}" x2="${Math.max(ba,nx).toFixed(1)}" y2="${y}" stroke="${under?'var(--red)':'var(--accent)'}" stroke-width="4"/>
+   <circle cx="${ba.toFixed(1)}" cy="${y}" r="6" fill="var(--text-sec)"/><text x="${ba.toFixed(1)}" y="${y-12}" text-anchor="middle" font-size="10" fill="var(--text)">avg buy ${usd4(w.avg_buy_price_usd)}</text>
+   <circle cx="${nx.toFixed(1)}" cy="${y}" r="6" fill="${under?'var(--red)':'var(--accent)'}"/><text x="${nx.toFixed(1)}" y="${y+20}" text-anchor="middle" font-size="10" fill="var(--text)">now ${usd4(DATA.price_usd)}</text>
+  </svg>`;
+}
+
+function walletHTML(w){
+  const pnlUp=w.total_pnl_usd>=0;
+  const links=w.coldkeys.map(c=>`<a href="https://taostats.io/account/${c}" target="_blank" rel="noopener">${shortA(c)} ↗</a>`).join(' · ');
+  const rows=w.recent.map(t=>`<tr><td>${t.ts}</td><td><span class="badge ${t.side}">${t.side.toUpperCase()}</span></td><td>${num(t.alpha,0)} α</td><td>${usd4(t.price_usd)}</td><td>${usdC(t.usd)}</td></tr>`).join('');
+  return `
+  <div class="wmeta">${w.note} · ${links} · first SN72 trade ${w.first_trade} · ${w.n_trades} trades (${w.n_buys} buys / ${w.n_sells} sells)</div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">Position now</div><div class="v">${usdC(w.current_value_usd)}</div><div class="s">${num(w.current_alpha,0)} α @ ${usd4(DATA.price_usd)}</div></div>
+    <div class="kpi"><div class="k">Total PnL</div><div class="v ${pnlUp?'up':'down'}">${pnlUp?'+':''}${usdC(w.total_pnl_usd)}</div><div class="s ${pnlUp?'up':'down'}">${pnlUp?'+':''}${w.roi_pct.toFixed(0)}% on invested</div></div>
+    <div class="kpi"><div class="k">Avg buy price</div><div class="v">${usd4(w.avg_buy_price_usd)}</div><div class="s">now ${usd4(DATA.price_usd)} · ${(DATA.price_usd/w.avg_buy_price_usd*100-100).toFixed(0)}%</div></div>
+    <div class="kpi"><div class="k">Realized / Unreal.</div><div class="v" style="font-size:1.1rem"><span class="${w.realized_pnl_usd>=0?'up':'down'}">${usdC(w.realized_pnl_usd)}</span> / <span class="${w.unrealized_pnl_usd>=0?'up':'down'}">${usdC(w.unrealized_pnl_usd)}</span></div><div class="s">booked vs on paper</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Bought vs sold, by month</h3><div class="cap"><span class="up">green = bought</span> · <span class="down">red = sold</span> (USD)</div>${monthBars(w.monthly)}</div>
+    <div class="panel"><h3>Cost basis vs market</h3><div class="cap">avg entry price vs current SN72 price</div>${costBar(w)}
+      <div class="kv"><span class="k">Invested (cost)</span><span class="v">${usdC(w.invested_usd)}</span></div>
+      <div class="kv"><span class="k">Proceeds from sells</span><span class="v">${usdC(w.proceeds_usd)}</span></div>
+      <div class="kv"><span class="k">Current holdings value</span><span class="v">${usdC(w.current_value_usd)}</span></div>
+      <div class="kv"><span class="k">Total PnL</span><span class="v ${pnlUp?'up':'down'}">${pnlUp?'+':''}${usdC(w.total_pnl_usd)}</span></div>
+    </div>
+  </div>
+  <h3 class="sec">Trade ledger — most recent ${w.recent.length} of ${w.n_trades}</h3>
+  <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Side</th><th>Alpha</th><th>Price</th><th>Value</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function render(d,live){
+  DATA=d;
+  const dot=document.getElementById('dot'),st=document.getElementById('statusTxt');
+  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
+  dot.className='dot'+(live?'':' snap'); st.textContent=(live?'LIVE · ':'SNAPSHOT · ')+t;
+  document.getElementById('tabs').innerHTML=d.wallets.map((w,i)=>`<button class="tab ${i===SEL?'active':''}" onclick="pick(${i})">${w.name}</button>`).join('');
+  document.getElementById('wallet').innerHTML=walletHTML(d.wallets[SEL]);
+}
+function pick(i){SEL=i;render(DATA,true);}
+function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
+function loadData(){try{if(typeof fetch!=='function'){render(FALLBACK,false);return;}fetch('./trades_data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>render(d,true)).catch(()=>render(FALLBACK,false));}catch(e){render(FALLBACK,false);}}
+loadData();
+</script>
+</body>
+</html>

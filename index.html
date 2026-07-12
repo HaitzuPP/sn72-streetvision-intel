@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SN72 · StreetVision — Token Intelligence</title>
+<meta name="description" content="Subnet 72 (StreetVision) at a glance: price, rank, emissions, conviction, and holder concentration on Bittensor.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--amber:#e0a800;--gold:#d4a017;--purple:#a855f7}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--amber:#b7791f;--gold:#a37514;--purple:#7c3aed}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Arial,Helvetica,sans-serif;font-weight:700}
+a{color:inherit}
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{max-width:1000px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700}
+.nav-brand svg{width:26px;height:26px;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.4rem}
+.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.5px;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.theme-toggle,.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.3rem .55rem;border-radius:6px;font-size:.7rem;font-family:inherit;transition:all .2s}
+.theme-toggle:hover,.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+main{flex:1;width:100%;max-width:1000px;margin:0 auto;padding:2.4rem 1.5rem 3rem}
+.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.8rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.status{font-size:.62rem;color:var(--text-muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
+.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
+.hero-title{font-size:clamp(30px,6vw,46px);letter-spacing:-.02em;line-height:1.05;margin-bottom:.7rem}
+.hero-title .accent{color:var(--accent)}
+.verdict{font-size:15px;color:var(--text-sec);max-width:760px;line-height:1.65}
+.verdict b{color:var(--text);font-weight:700}
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 1.6rem}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem}
+.kpi .k{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:.5rem}
+.kpi .v{font-size:2rem;font-weight:700;line-height:1}
+.kpi .s{font-size:.78rem;margin-top:.45rem;color:var(--text-muted)}
+.up{color:var(--accent)}.down{color:var(--red)}
+/* rank strip */
+.rankcard{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.6rem}
+.rankcard .hd{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
+.rankcard h3{font-size:.95rem}
+.rankcard .so{font-size:.75rem;color:var(--text-muted)}
+/* one-liner rows */
+.row{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:1.05rem 1.4rem;margin-bottom:1rem}
+.row .top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.row .lbl{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.2px}
+.row .line{font-size:1rem;margin-top:.35rem;line-height:1.5}
+.row .line b{font-weight:700}
+.row .so{font-size:.76rem;color:var(--text-muted);margin-top:.35rem}
+.tog{font-size:.68rem;color:var(--text-sec);cursor:pointer;user-select:none;border:1px solid var(--border);border-radius:20px;padding:.15rem .6rem;white-space:nowrap}
+.tog:hover{border-color:var(--accent);color:var(--accent)}
+.drawer{display:none;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--border)}
+.drawer.open{display:block}
+.pill{display:inline-block;font-size:.7rem;padding:.15rem .5rem;border-radius:20px;border:1px solid var(--border);color:var(--text-sec);margin:.15rem .3rem .15rem 0}
+.pill.g{border-color:color-mix(in srgb,var(--accent) 45%,transparent);color:var(--accent)}
+.pill.p{border-color:color-mix(in srgb,var(--purple) 45%,transparent);color:var(--purple)}
+.pill.gold{border-color:color-mix(in srgb,var(--gold) 45%,transparent);color:var(--gold)}
+/* mini table */
+.mtable{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:.3rem}
+.mtable th{text-align:right;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;padding:.4rem .5rem;border-bottom:1px solid var(--border)}
+.mtable th:first-child{text-align:left}
+.mtable td{padding:.45rem .5rem;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+.mtable td:first-child{text-align:left}
+.mtable tr:last-child td{border-bottom:none}
+.mono{font-variant-numeric:tabular-nums}
+.addr{color:var(--text-sec);text-decoration:none}.addr:hover{color:var(--accent)}
+details.det{margin-top:1.4rem;border:1px solid var(--border);border-radius:14px;background:var(--bg-card);padding:0 1.4rem}
+details.det>summary{cursor:pointer;padding:1rem 0;font-weight:700;font-size:.9rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.det>summary::-webkit-details-marker{display:none}
+details.det>summary::after{content:"▾";color:var(--text-muted);font-size:.8rem}
+details.det[open]>summary::after{content:"▴"}
+.det .body{padding:0 0 1.3rem}
+.det h4{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:1rem 0 .5rem}
+.kv{display:flex;justify-content:space-between;padding:.4rem 0;border-top:1px solid var(--border);font-size:.82rem}
+.kv:first-of-type{border-top:none}.kv .k{color:var(--text-sec)}
+footer{border-top:1px solid var(--border);padding:1.8rem 1.5rem;text-align:center;margin-top:2rem}
+.footer-text{font-size:.72rem;color:var(--text-muted)}
+.footer-text a{color:var(--text-sec);text-decoration:none}.footer-text a:hover{color:var(--accent)}
+svg{display:block;width:100%;height:auto}
+@media(max-width:700px){.kpis{grid-template-columns:1fr;gap:.7rem}.kpi .v{font-size:1.7rem}}
+</style>
+</head>
+<body>
+<header><nav>
+<a href="index.html" class="nav-brand">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+SN72 · StreetVision
+</a>
+<div class="nav-links">
+<a href="index.html" class="nav-link active">OVERVIEW</a>
+<a href="wallets.html" class="nav-link">WALLETS</a>
+<a href="analytics.html" class="nav-link">ANALYTICS</a>
+<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+<button class="rbtn" onclick="manualRefresh()">↻</button>
+<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+</div>
+</nav></header>
+
+<main>
+<div class="hero-label"><span>Token Intelligence · Bittensor Subnet 72</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span></div>
+<h1 class="hero-title">StreetVision <span class="accent">at a glance</span></h1>
+<p class="verdict" id="verdict"></p>
+
+<div class="kpis" id="kpis"></div>
+<div class="rankcard">
+  <div class="hd"><h3>Where SN72 ranks on Bittensor</h3><span class="so" id="rankso"></span></div>
+  <div id="rankstrip"></div>
+</div>
+
+<div id="rows"></div>
+
+<details class="det"><summary>Subnet details — validators, pool &amp; full leaderboard</summary><div class="body" id="details"></div></details>
+</main>
+
+<footer><p class="footer-text">SN72 · StreetVision Token Intelligence — a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Data via tao.com &amp; taostats. Not financial advice.</p></footer>
+
+<script>(function(){var t=localStorage.getItem('sn72-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<script>
+const FALLBACK = {"generated_at":"2026-07-12T09:54:01Z","source":"tao.com Data API + taostats","taostats_enabled":true,"tao":{"price_usd":210.3206750504633,"change_24h_pct":-1.4108899004224638,"market_cap_usd":2337585153.5151925},"network":{"total_subnets":128,"staked_tao":7391782.133353339,"staked_root_pct":72.89841586263132,"staked_alpha_pct":27.101584137368672},"subnet":{"netuid":72,"name":"StreetVision by NATIX","price_usd":0.6764423209729807,"price_tao":0.003215466,"market_cap_usd":3323188.559930687,"fdv_usd":14205315.247238278,"volume_24h_usd":6572.301245975405,"change_24h_pct":0.006158118079124311,"change_7d_pct":0.5812534955913339,"change_30d_pct":-0.2557920806821437,"tao_in_pool":7604.952678226,"alpha_in_pool":2365116.331821827,"circulating_alpha":4912744.896195555,"total_traders":5375,"holder_count":1399,"rank":124},"leaderboard":{"subnet_rank":124,"total":129,"rows":[{"rank":121,"netuid":29,"name":"ho\u03c4floa\u03c4","mcap_usd":3847809.664169562,"change_7d":-2.5276013485196978,"is_subject":false,"is_target":false},{"rank":122,"netuid":42,"name":"Unknown","mcap_usd":3619641.8257729285,"change_7d":1.2011147013904624,"is_subject":false,"is_target":false},{"rank":123,"netuid":84,"name":"ansuz","mcap_usd":650128.4434293578,"change_7d":-5.068103354162085,"is_subject":false,"is_target":false},{"rank":124,"netuid":72,"name":"StreetVision by NATIX","mcap_usd":3304914.666959365,"change_7d":0.5812534955913339,"is_subject":true,"is_target":false},{"rank":125,"netuid":70,"name":"NexisGen","mcap_usd":662587.2166754627,"change_7d":26.832924754270422,"is_subject":false,"is_target":false},{"rank":126,"netuid":36,"name":"Eirel","mcap_usd":579383.7330278609,"change_7d":7.181760669383033,"is_subject":false,"is_target":false},{"rank":127,"netuid":76,"name":"Byzantium","mcap_usd":800333.8674680225,"change_7d":2.283693828172426,"is_subject":false,"is_target":false}]},"emissions":{"total":{"tao_day":23.1513984,"usd_day":4869.217739850216,"usd_year":1777264.475045329},"owner":{"tao_day":4.167145731691463,"usd_day":876.4369033230053,"usd_year":319899.4697128969},"miner":{"tao_day":9.492126334154268,"usd_day":1996.3904182636052,"usd_year":728682.5026662159},"validator":{"tao_day":9.492126334154268,"usd_day":1996.3904182636052,"usd_year":728682.5026662159},"incentive_burn_pct":100.0},"conviction":{"available":true,"locked_alpha":425109.429051157,"locked_usd":287562.00885486335,"pct_of_circulating":8.653195678455909,"lock_count":2,"perpetual_count":2,"top":[{"coldkey":"5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh","alpha":419121.695075544,"perpetual":true,"owner_hotkey":false,"label":"Validator","hl":"gold"},{"coldkey":"5GH2aUTMRUh1RprCgH4x3tRyCaKeUi5BfmYCfs1NARA8R54n","alpha":5987.733975613,"perpetual":true,"owner_hotkey":true,"label":null,"hl":null}]},"validators":[{"name":"Unnamed","hotkey":"5Fmvr2VJs9EpyR5NbNpLTKgEXS8fRnQA6F349xqswsz6VL88","stake_alpha":649442.201787274,"dominance_pct":52.47,"apr_pct":2.22,"nominators":19},{"name":"Unnamed","hotkey":"5GP7c3fFazW9GXK8Up3qgu2DJBk8inu4aK9TZy3RuoSWVCMi","stake_alpha":479425.369370284,"dominance_pct":38.74,"apr_pct":65.54,"nominators":39},{"name":"Yuma, a DCG Company","hotkey":"5FjzaRohSjLSinKvVGnufjuYxrp578mAaNdUVTfpw7CNweEi","stake_alpha":70130.101853194,"dominance_pct":5.66,"apr_pct":70.38,"nominators":27},{"name":"TAO.com","hotkey":"5FP1o3Q9W9y8wr23F644qcKz35244hmXLm8Gu6Ccij2rwE3d","stake_alpha":14344.251147968,"dominance_pct":1.15,"apr_pct":69.38,"nominators":10},{"name":"Open\u03c4ensor Founda\u03c4ion","hotkey":"5E1XmvqJ9gnMi1NV29oy4KC15zJmkQ93nKGc6VWUYYP4yr9J","stake_alpha":13684.797075479,"dominance_pct":1.1,"apr_pct":55.55,"nominators":24},{"name":"Rizzo (Insured)","hotkey":"5GKXPseh2DDXYC8uYs3M5MWaqfj1TDNrJdNMA4zgZ9oSis72","stake_alpha":10062.562331595,"dominance_pct":0.81,"apr_pct":55.81,"nominators":16},{"name":"Unnamed","hotkey":"5CsvRJXuR955WojnGMdok1hbhffZyB4N5ocrv82f3p5A2zVp","stake_alpha":426.122112313,"dominance_pct":0.03,"apr_pct":59.71,"nominators":14}],"holders":[{"rank":1,"coldkey":"5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh","alpha":421322.591874875,"usd":285000.43192619237,"share_pct":8.576113777068874,"label":"Validator","hl":"gold","is_val":true,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":2,"coldkey":"5Hj8hTzdJirY4o1W4E8ZYu3iVgSViaDAkDQXf6xew7fQH1ay","alpha":314192.6926202,"usd":212533.2342287584,"share_pct":6.3954611782002315,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":3,"coldkey":"5CksQZPhC2LWufmCf4zc7z4muxwywhaQpz5aYcFS4bTJWfjo","alpha":246311.914307104,"usd":166615.80299719537,"share_pct":5.013733045610586,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":4,"coldkey":"5G6nTF2ZKehD9B8TLAX2kf6dXZtkRRmqkVhFsTJWbZv6v8bh","alpha":136718.889421213,"usd":92482.44288093364,"share_pct":2.7829429842182227,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":5,"coldkey":"5EpxhAUFLvTRKhW8MkqjJEygEBEiMAQQooZPHLTt5UNFLysz","alpha":68561.728823389,"usd":46378.05497521337,"share_pct":1.3955890295969453,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":6,"coldkey":"5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv","alpha":54843.655779919,"usd":37098.56980641164,"share_pct":1.1163546436614304,"label":"SN72 owner","hl":"green","is_val":true,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":7,"coldkey":"5Fjzx6fDVKR7A5rU6XwTuecQNgnaSvqAATgiTRshLfKW33EK","alpha":53169.433357043,"usd":35966.05490485639,"share_pct":1.0822754789937816,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":8,"coldkey":"5Gxtn5j2SNMU6CLjHAn7564bQFrANv44EZCmmLRZyHX8vm3y","alpha":53149.54541994,"usd":35952.60186252307,"share_pct":1.0818706556715203,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":9,"coldkey":"5G1JTWFSVqg9M7FA5j9PSFNVtGeLNqc58FqwEAB5URmz9rFo","alpha":48482.303010824,"usd":32795.48157475712,"share_pct":0.9868679126483617,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":10,"coldkey":"5HLAW7BHTBb98Gw3Thm5a6URU2udsuFYA5hiLRMGJbgb8qfA","alpha":47399.527752359,"usd":32063.046565828932,"share_pct":0.9648277847495266,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":11,"coldkey":"5FsnE14afnq6uDQomdekH2nf82uveFcx2LwfiJY5JbtCkfBt","alpha":46910.996799748,"usd":31732.58355437761,"share_pct":0.9548836300471456,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":12,"coldkey":"5EqqEM18K9X2Zcp54WCdEwHxZPe39Pb7cXDRXxdVu1F6wFWh","alpha":45249.474877818,"usd":30608.65980915979,"share_pct":0.9210629868621784,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":13,"coldkey":"5ECjWvd1gWqmziAnGfvqM1jcGd6EHaqQZPXwCti5sFLpvH3o","alpha":42457.828282754,"usd":28720.27190705838,"share_pct":0.8642384080564305,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":14,"coldkey":"5CPdKceHugdZBwWWZqTiF3Hq5mc11E6MsZUWkYxVeLxnkTi5","alpha":36068.733508322,"usd":24398.417808925256,"share_pct":0.7341869824393639,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":15,"coldkey":"5F9VLawB37wvLurga3oY8QnnbQZpwDmqz64xTbPQWu7gPZV5","alpha":32275.98200085,"usd":21832.840176337126,"share_pct":0.6569846935436159,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":16,"coldkey":"5CX9HWTx2J4VRvwR5VLnWNRVxPDHHyFZ6piyogoPUAWmCPHp","alpha":29967.768633152,"usd":20271.46696859063,"share_pct":0.6100005041246724,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":17,"coldkey":"5DywHvwVgfCHRKtf4BBAocyBQNPsxCGTHsQhcjBGRMkrnQG7","alpha":25176.900383599,"usd":17030.720930387237,"share_pct":0.5124813300014025,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":18,"coldkey":"5EgtSSEeDWdbdF8USxBUU2DsMPBvWVD1hX7cUbbXGFsp1E2d","alpha":23133.968597715,"usd":15648.795411554387,"share_pct":0.4708970053712746,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":19,"coldkey":"5GC4gjpbw7AGt2Niw1aTmVBwKtrGC9wRDuoZV8xBa5u5i4mP","alpha":22267.546581554,"usd":15062.710892000352,"share_pct":0.45326079517782525,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":20,"coldkey":"5GjoDduJujeACNfPDRVBBpdEqwRRY8vAygUWjQNwwDAn5EE9","alpha":17803.56355123,"usd":12043.083850183984,"share_pct":0.36239544139605406,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":21,"coldkey":"5Df4bY6SPTHc3np3M9ddV1yxi3jsMsyS7aGzzK7Raq7Qm57U","alpha":16361.550141259,"usd":11067.644952269038,"share_pct":0.333042942122426,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":22,"coldkey":"5EZgbECdA1VLsWhFsqcsrrU5u1ZYYpYDD1JGfyrWVBgVhmrK","alpha":15366.173329998,"usd":10394.329951816964,"share_pct":0.3127818287877641,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":23,"coldkey":"5HYMdk7PeSZtR8dCbNa8841FVqFx5MhibS5z5QYbCpfMShUe","alpha":14834.187219704,"usd":10034.472032644302,"share_pct":0.30195313481861513,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":24,"coldkey":"5GBb1YTHeG1PowySdM4DXms54vsLCJEnb9LPyu7d3cEv9GVm","alpha":14348.621049634,"usd":9706.01452557619,"share_pct":0.29206932891519805,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":25,"coldkey":"5CaARAhuMs4pfhMhf8vzjsXQWbzjg5TCvSuTtYJbfaMRVJdM","alpha":14166.283214163,"usd":9582.673496948997,"share_pct":0.2883578022773667,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true}]};
+function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn72-theme',t)}
+const usdC=n=>{const a=Math.abs(n);return (a>=1e6?'$'+(a/1e6).toFixed(2)+'M':a>=1e3?'$'+(a/1e3).toFixed(1)+'k':'$'+a.toFixed(0))};
+const usdP=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:n<10?4:0});
+const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+const pct=n=>{const s=n>=0?'+':'';return `<span class="${n>=0?'up':'down'}">${s}${n.toFixed(1)}%</span>`};
+const shortA=a=>a.slice(0,6)+'…'+a.slice(-4);
+const HL={green:'g',purple:'p',gold:'gold'};
+function toggle(id){document.getElementById(id).classList.toggle('open')}
+
+function rankStrip(d){
+  const lb=d.leaderboard, r=lb.subnet_rank, tot=lb.total;
+  const W=700,H=64,x0=40,x1=W-40,y=34;
+  const X=rank=>x0+(rank-1)/(tot-1)*(x1-x0);
+  const comps=(lb.rows||[]).filter(z=>z.is_target);
+  let ticks='';
+  comps.forEach(z=>{const x=X(z.rank);ticks+=`<circle cx="${x.toFixed(1)}" cy="${y}" r="3.5" fill="var(--gold)"><title>${z.name} SN${z.netuid} — #${z.rank}</title></circle><text x="${x.toFixed(1)}" y="${y-9}" text-anchor="middle" font-size="8" fill="var(--gold)">SN${z.netuid}</text>`;});
+  const mx=X(r);
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+    <line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="var(--border-hover)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="${x0}" y1="${y}" x2="${mx.toFixed(1)}" y2="${y}" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    ${ticks}
+    <circle cx="${mx.toFixed(1)}" cy="${y}" r="7" fill="var(--accent)"/>
+    <text x="${mx.toFixed(1)}" y="${y+22}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text)">SN72 · #${r}</text>
+    <text x="${x0}" y="${y-9}" font-size="8" fill="var(--text-muted)">#1 best</text>
+    <text x="${x1}" y="${y-9}" text-anchor="end" font-size="8" fill="var(--text-muted)">#${tot}</text>
+  </svg>`;
+}
+
+function render(d,live){
+  const s=d.subnet,e=d.emissions,c=d.conviction||{},lb=d.leaderboard;
+  const conc=d.holders.reduce((a,h)=>a+h.share_pct,0);
+  const dot=document.getElementById('dot'),st=document.getElementById('statusTxt');
+  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
+  dot.className='dot'+(live?'':' snap'); st.textContent=(live?'LIVE · ':'SNAPSHOT · ')+t;
+
+  const tier=lb.subnet_rank<=lb.total/3?'Top-tier':lb.subnet_rank<=2*lb.total/3?'Mid-tier':'Lower-tier';
+  document.getElementById('verdict').innerHTML=`${tier} subnet — <b>#${lb.subnet_rank} of ${lb.total}</b> by price/FDV, <b>${usdC(s.market_cap_usd)}</b> cap. It emits <b>~${num(e.total.tao_day/s.price_tao,0)} α/day</b> of its own token (worth ~${usdC(e.total.usd_day)}); ${c.available?`<b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of supply is conviction-locked`:`conviction data is refreshing`}, and the top-25 wallets hold <b>${conc.toFixed(0)}%</b>.`;
+
+  document.getElementById('kpis').innerHTML=[
+    ['Alpha price', usdP(s.price_usd), pct(s.change_24h_pct)+' · 24h'],
+    ['Market cap', usdC(s.market_cap_usd), '#'+lb.subnet_rank+' of '+lb.total+' subnets'],
+    ['Emissions', num(e.total.tao_day/s.price_tao,0)+'<span style="font-size:.9rem;color:var(--text-muted)"> α/day</span>', 'SN72 token (~'+usdC(e.total.usd_day)+'/day) · no TAO to holders'],
+  ].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
+
+  document.getElementById('rankso').textContent='by alpha price / FDV · SN72 highlighted';
+  document.getElementById('rankstrip').innerHTML=rankStrip(d);
+
+  // one-liner rows
+  const ownP=e.owner.usd_day/e.total.usd_day*100, valP=e.validator.usd_day/e.total.usd_day*100;
+  const top=(c.top||[]).slice(0,4);
+  const hmap={}; d.holders.forEach(h=>hmap[h.coldkey]=h);
+  const convPos=top.map(p=>{const h=hmap[p.coldkey]||{};const cls=h.hl?('pill '+(HL[h.hl]||'')):'pill';return `<span class="${cls}">${h.label||shortA(p.coldkey)} · ${num(p.alpha,0)} α</span>`}).join(' ');
+  const top3=d.holders.slice(0,3).map(h=>{const cls=h.hl?('pill '+(HL[h.hl]||'')):'pill';return `<span class="${cls}">#${h.rank} ${h.label||shortA(h.coldkey)} · ${usdC(h.usd)}</span>`}).join(' ');
+
+  document.getElementById('rows').innerHTML=`
+  <div class="row"><div class="top"><div><div class="lbl">Emissions (SN72 token)</div><div class="line">≈ <b>${num(e.total.tao_day/s.price_tao,0)} α/day</b> of the subnet token (~${usdC(e.total.usd_day)}) → owner 18% · validators 41% · miner 41% <span class="down">burned</span></div></div><span class="tog" onclick="toggle('drwE')">detail ▾</span></div>
+    <div class="so">Owner receives ~${num(e.owner.tao_day/s.price_tao,0)} α/day (~${usdC(e.owner.usd_day)}); paid in alpha, not TAO. TAO only enters the pool when alpha is bought.</div>
+    <div class="drawer" id="drwE"><table class="mtable"><thead><tr><th>Key</th><th>α/day</th><th>USD/day</th><th>USD/yr</th></tr></thead><tbody>
+    ${[['Owner',e.owner],['Validators',e.validator],['Miner (burned)',e.miner]].map(x=>`<tr><td>${x[0]}</td><td class="mono">${num(x[1].tao_day/s.price_tao,0)}</td><td class="mono">${usdC(x[1].usd_day)}</td><td class="mono">${usdC(x[1].usd_day*365)}</td></tr>`).join('')}
+    </tbody></table></div></div>
+
+  ${c.available ? `<div class="row"><div class="top"><div><div class="lbl">Bittensor Conviction${c.stale?' <span style="color:var(--amber)">· last known</span>':''}</div><div class="line"><b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of circulating α conviction-locked · ${c.lock_count||0} position${c.lock_count===1?'':'s'}</div></div><span class="tog" onclick="toggle('drwC')">positions ▾</span></div>
+    <div class="so">${num(c.locked_alpha||0,0)} α locked (${usdC(c.locked_usd||0)}) — dominated by ${(top[0]&&(hmap[top[0].coldkey]||{}).label)||'one wallet'}.</div>
+    <div class="drawer" id="drwC">${convPos||'—'}</div></div>`
+  : `<div class="row"><div class="lbl">Bittensor Conviction</div><div class="line" style="color:var(--text-muted)">Awaiting data — the last refresh couldn't reach taostats. Press ↻ to retry.</div></div>`}
+
+  <div class="row"><div class="top"><div><div class="lbl">Holder concentration</div><div class="line">Top-25 wallets hold <b>${conc.toFixed(0)}%</b> of supply · ${num(s.holder_count)} holders total</div></div><a class="tog" href="wallets.html">See all 25 →</a></div>
+    <div class="so">Largest: ${top3}</div></div>`;
+
+  // details disclosure
+  const nb=d.network;
+  document.getElementById('details').innerHTML=`
+  <h4>Pool &amp; network</h4>
+  <div class="kv"><span class="k">Alpha in pool</span><span class="mono">${num(s.alpha_in_pool,0)} α</span></div>
+  <div class="kv"><span class="k">TAO reserve</span><span class="mono">${num(s.tao_in_pool,0)} τ · ${usdC(s.tao_in_pool*d.tao.price_usd)}</span></div>
+  <div class="kv"><span class="k">24h volume</span><span class="mono">${usdC(s.volume_24h_usd)}</span></div>
+  <div class="kv"><span class="k">FDV</span><span class="mono">${usdC(s.fdv_usd)}</span></div>
+  <div class="kv"><span class="k">Network stake split</span><span class="mono">${nb.staked_root_pct.toFixed(0)}% root / ${nb.staked_alpha_pct.toFixed(0)}% alpha</span></div>
+  <h4>Top validators</h4>
+  <table class="mtable"><thead><tr><th>Validator</th><th>Stake α</th><th>Dominance</th><th>APR</th></tr></thead><tbody>
+  ${d.validators.slice(0,6).map(v=>`<tr><td>${v.name}</td><td class="mono">${num(v.stake_alpha,0)}</td><td class="mono">${v.dominance_pct.toFixed(1)}%</td><td class="mono up">${v.apr_pct.toFixed(0)}%</td></tr>`).join('')}
+  </tbody></table>
+  <h4>Rank neighbourhood</h4>
+  <table class="mtable"><thead><tr><th>Rank</th><th>Subnet</th><th>Market cap</th><th>7d</th></tr></thead><tbody>
+  ${lb.rows.map(r=>`<tr style="${r.is_subject?'background:var(--accent-dim)':''}"><td class="mono">#${r.rank}</td><td>${r.name} <span style="color:var(--text-muted)">SN${r.netuid}</span>${r.is_target&&!r.is_subject?' <span class="pill gold">comp</span>':''}</td><td class="mono">${usdC(r.mcap_usd)}</td><td class="mono">${pct(r.change_7d)}</td></tr>`).join('')}
+  </tbody></table>`;
+}
+function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
+function loadData(){try{if(typeof fetch!=='function'){render(FALLBACK,false);return;}fetch('./data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>render(d,true)).catch(()=>render(FALLBACK,false));}catch(e){render(FALLBACK,false);}}
+loadData();
+</script>
+</body>
+</html>

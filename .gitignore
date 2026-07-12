@@ -1,0 +1,5 @@
+ts_cache.json
+tsc/
+tscv/
+__pycache__/
+*.pyc

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SN72 · Top 25 Wallets — Token Intelligence</title>
+<meta name="description" content="Top 25 alpha holders on Bittensor Subnet 72 (StreetVision), with tracked wallets and concentration. Live tao.com data.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--amber:#e0a800;--gold:#d4a017;--gold-dim:color-mix(in srgb,#d4a017 15%,var(--bg));--purple:#a855f7;--purple-dim:color-mix(in srgb,#a855f7 16%,var(--bg));--orange:#f97316;--orange-dim:color-mix(in srgb,#f97316 16%,var(--bg))}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--amber:#b7791f;--gold:#a37514;--gold-dim:color-mix(in srgb,#a37514 10%,#fff);--purple:#7c3aed;--purple-dim:color-mix(in srgb,#7c3aed 12%,#fff);--orange:#c2410c;--orange-dim:color-mix(in srgb,#c2410c 12%,#fff)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial, Helvetica, sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Arial, Helvetica, sans-serif;font-weight:400}
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:Arial, Helvetica, sans-serif;font-size:1.05rem}
+.nav-brand svg{width:26px;height:26px;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.5rem}
+.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.5px;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.35rem .5rem;border-radius:6px;font-size:.85rem;transition:all .2s}
+.theme-toggle:hover{border-color:var(--border-hover);color:var(--text)}
+.hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:.5rem}
+.hamburger svg{width:24px;height:24px}
+main{flex:1;width:100%;max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem 3rem}
+.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.hero-title{font-size:clamp(28px,5vw,46px);letter-spacing:-0.02em;line-height:1.1;margin-bottom:.75rem}
+.hero-title .accent{color:var(--accent)}
+.hero-sub{font-size:14.5px;color:var(--text-sec);max-width:660px;line-height:1.7}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
+.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
+.status{font-family:Arial, Helvetica, sans-serif;font-size:.62rem;color:var(--text-muted);letter-spacing:.5px}
+.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.2rem .6rem;border-radius:6px;font-size:.62rem;font-family:Arial,Helvetica,sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .2s}
+.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+.rbtn:active{transform:scale(.96)}
+.tag.gray{background:color-mix(in srgb,var(--text-muted) 20%,var(--bg));color:var(--text-sec);border:1px solid var(--border);font-weight:500}
+.stats{display:flex;gap:2.5rem;margin:2rem 0 1.5rem;flex-wrap:wrap}
+.stat{min-width:110px}
+.stat-num{font-family:Arial, Helvetica, sans-serif;font-size:1.5rem;line-height:1.1}
+.stat-label{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem}
+.controls{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
+.filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
+.filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.search-box{margin-left:auto;padding:.4rem .75rem .4rem 2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem;font-family:inherit;width:240px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:8px center}
+.search-box:focus{outline:none;border-color:var(--accent)}
+.table-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;padding:.7rem .9rem;font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:500;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card)}
+th.num{text-align:right}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--bg-card)}
+tbody tr.track{background:var(--accent-dim)}
+tbody tr.track:hover{background:color-mix(in srgb,var(--accent) 22%,var(--bg))}
+tbody tr.own{background:var(--gold-dim)}
+tbody tr.trackp{background:var(--purple-dim)}
+tbody tr.trackp:hover{background:color-mix(in srgb,var(--purple) 24%,var(--bg))}
+td{padding:.7rem .9rem;font-size:.85rem;vertical-align:middle}
+td.num{text-align:right;font-family:Arial, Helvetica, sans-serif;white-space:nowrap}
+.rank{font-family:Arial, Helvetica, sans-serif;color:var(--text-muted);width:2.5rem}
+.rank.medal{color:var(--accent)}
+.wname{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.wlabel{font-weight:600}
+.addr{font-family:Arial, Helvetica, sans-serif;font-size:.78rem;color:var(--text-sec);text-decoration:none}
+.addr:hover{color:var(--accent)}
+.tag{font-size:.6rem;padding:.12rem .45rem;border-radius:4px;font-family:Arial, Helvetica, sans-serif;letter-spacing:.3px;white-space:nowrap}
+.tag.track{background:var(--accent);color:#001b0e;font-weight:600}
+.tag.own{background:var(--gold);color:#1a1200;font-weight:600}
+.tag.trackp{background:var(--purple);color:#fff;font-weight:600}
+.tag.orange{background:var(--orange);color:#1a0a00;font-weight:600}
+tbody tr.orange{background:var(--orange-dim)}
+.sharebar{position:relative;height:6px;border-radius:4px;background:var(--border);overflow:hidden;margin-top:.35rem;width:100%}
+.sharebar i{position:absolute;left:0;top:0;height:100%;background:var(--accent);border-radius:4px}
+.share-cell{min-width:120px}
+.copy{cursor:pointer;color:var(--text-muted);font-size:.72rem;border:none;background:none;font-family:inherit}
+.copy:hover{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;margin-top:2rem}
+.footer-text{font-size:.75rem;color:var(--text-muted)}
+.footer-text a{color:var(--text-sec);text-decoration:none}
+.footer-text a:hover{color:var(--text)}
+@media(max-width:768px){.hamburger{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}.nav-links.open{display:flex}.search-box{width:100%;margin-left:0;order:10}.hide-sm{display:none}td,thead th{padding:.6rem .5rem;font-size:.8rem}}
+</style>
+</head>
+<body>
+<header><nav>
+<a href="index.html" class="nav-brand">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M8 3.5L12 6l4-2.5M4.5 8L8 12l-3.5 4M8 20.5L12 18l4 2.5M19.5 16L16 12l3.5-4"/></svg>
+SN72 · StreetVision
+</a>
+<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+<div class="nav-links">
+<a href="index.html" class="nav-link">OVERVIEW</a>
+<a href="wallets.html" class="nav-link active">WALLETS</a>
+<a href="analytics.html" class="nav-link">ANALYTICS</a>
+<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+</div>
+</nav></header>
+
+<main>
+<div class="hero-label"><span>Top 25 Wallets · SN72 Alpha</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span><button class="rbtn" onclick="manualRefresh()" title="Reload latest data">↻ Refresh</button></div>
+<h1 class="hero-title">Largest <span class="accent">SN72 alpha holders</span></h1>
+<p class="hero-sub">The 25 biggest coldkeys holding StreetVision (SN72) alpha, ranked by position. <span style="color:var(--accent)">Green</span> = SN72 owner · <span style="color:var(--gold)">gold ◆</span> = validators &amp; named entities. Click an address to open it on taostats.</p>
+
+<div class="stats" id="stats"></div>
+
+<div class="controls">
+<button class="filter-pill active" data-f="all" onclick="setFilter('all',this)">All 25</button>
+<button class="filter-pill" data-f="hl" onclick="setFilter('hl',this)">Highlighted</button>
+<button class="filter-pill" data-f="tagged" onclick="setFilter('tagged',this)">Tagged</button>
+<button class="filter-pill" data-f="val" onclick="setFilter('val',this)">◆ Validators</button>
+<input class="search-box" id="search" placeholder="Search address or label…" oninput="draw()">
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr>
+<th class="rank">#</th>
+<th>Wallet</th>
+<th class="num">Alpha held</th>
+<th class="num">Value (USD)</th>
+<th class="num share-cell">Share of supply</th>
+</tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</main>
+
+<footer><p class="footer-text">SN72 · StreetVision Token Intelligence — a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Data via tao.com. Not financial advice.</p></footer>
+
+<script>(function(){var t=localStorage.getItem('sn72-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<script>
+function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn72-theme',t)}
+const FALLBACK = {"generated_at":"2026-07-12T09:54:01Z","source":"tao.com Data API + taostats","taostats_enabled":true,"tao":{"price_usd":210.3206750504633,"change_24h_pct":-1.4108899004224638,"market_cap_usd":2337585153.5151925},"network":{"total_subnets":128,"staked_tao":7391782.133353339,"staked_root_pct":72.89841586263132,"staked_alpha_pct":27.101584137368672},"subnet":{"netuid":72,"name":"StreetVision by NATIX","price_usd":0.6764423209729807,"price_tao":0.003215466,"market_cap_usd":3323188.559930687,"fdv_usd":14205315.247238278,"volume_24h_usd":6572.301245975405,"change_24h_pct":0.006158118079124311,"change_7d_pct":0.5812534955913339,"change_30d_pct":-0.2557920806821437,"tao_in_pool":7604.952678226,"alpha_in_pool":2365116.331821827,"circulating_alpha":4912744.896195555,"total_traders":5375,"holder_count":1399,"rank":124},"leaderboard":{"subnet_rank":124,"total":129,"rows":[{"rank":121,"netuid":29,"name":"ho\u03c4floa\u03c4","mcap_usd":3847809.664169562,"change_7d":-2.5276013485196978,"is_subject":false,"is_target":false},{"rank":122,"netuid":42,"name":"Unknown","mcap_usd":3619641.8257729285,"change_7d":1.2011147013904624,"is_subject":false,"is_target":false},{"rank":123,"netuid":84,"name":"ansuz","mcap_usd":650128.4434293578,"change_7d":-5.068103354162085,"is_subject":false,"is_target":false},{"rank":124,"netuid":72,"name":"StreetVision by NATIX","mcap_usd":3304914.666959365,"change_7d":0.5812534955913339,"is_subject":true,"is_target":false},{"rank":125,"netuid":70,"name":"NexisGen","mcap_usd":662587.2166754627,"change_7d":26.832924754270422,"is_subject":false,"is_target":false},{"rank":126,"netuid":36,"name":"Eirel","mcap_usd":579383.7330278609,"change_7d":7.181760669383033,"is_subject":false,"is_target":false},{"rank":127,"netuid":76,"name":"Byzantium","mcap_usd":800333.8674680225,"change_7d":2.283693828172426,"is_subject":false,"is_target":false}]},"emissions":{"total":{"tao_day":23.1513984,"usd_day":4869.217739850216,"usd_year":1777264.475045329},"owner":{"tao_day":4.167145731691463,"usd_day":876.4369033230053,"usd_year":319899.4697128969},"miner":{"tao_day":9.492126334154268,"usd_day":1996.3904182636052,"usd_year":728682.5026662159},"validator":{"tao_day":9.492126334154268,"usd_day":1996.3904182636052,"usd_year":728682.5026662159},"incentive_burn_pct":100.0},"conviction":{"available":true,"locked_alpha":425109.429051157,"locked_usd":287562.00885486335,"pct_of_circulating":8.653195678455909,"lock_count":2,"perpetual_count":2,"top":[{"coldkey":"5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh","alpha":419121.695075544,"perpetual":true,"owner_hotkey":false,"label":"Validator","hl":"gold"},{"coldkey":"5GH2aUTMRUh1RprCgH4x3tRyCaKeUi5BfmYCfs1NARA8R54n","alpha":5987.733975613,"perpetual":true,"owner_hotkey":true,"label":null,"hl":null}]},"validators":[{"name":"Unnamed","hotkey":"5Fmvr2VJs9EpyR5NbNpLTKgEXS8fRnQA6F349xqswsz6VL88","stake_alpha":649442.201787274,"dominance_pct":52.47,"apr_pct":2.22,"nominators":19},{"name":"Unnamed","hotkey":"5GP7c3fFazW9GXK8Up3qgu2DJBk8inu4aK9TZy3RuoSWVCMi","stake_alpha":479425.369370284,"dominance_pct":38.74,"apr_pct":65.54,"nominators":39},{"name":"Yuma, a DCG Company","hotkey":"5FjzaRohSjLSinKvVGnufjuYxrp578mAaNdUVTfpw7CNweEi","stake_alpha":70130.101853194,"dominance_pct":5.66,"apr_pct":70.38,"nominators":27},{"name":"TAO.com","hotkey":"5FP1o3Q9W9y8wr23F644qcKz35244hmXLm8Gu6Ccij2rwE3d","stake_alpha":14344.251147968,"dominance_pct":1.15,"apr_pct":69.38,"nominators":10},{"name":"Open\u03c4ensor Founda\u03c4ion","hotkey":"5E1XmvqJ9gnMi1NV29oy4KC15zJmkQ93nKGc6VWUYYP4yr9J","stake_alpha":13684.797075479,"dominance_pct":1.1,"apr_pct":55.55,"nominators":24},{"name":"Rizzo (Insured)","hotkey":"5GKXPseh2DDXYC8uYs3M5MWaqfj1TDNrJdNMA4zgZ9oSis72","stake_alpha":10062.562331595,"dominance_pct":0.81,"apr_pct":55.81,"nominators":16},{"name":"Unnamed","hotkey":"5CsvRJXuR955WojnGMdok1hbhffZyB4N5ocrv82f3p5A2zVp","stake_alpha":426.122112313,"dominance_pct":0.03,"apr_pct":59.71,"nominators":14}],"holders":[{"rank":1,"coldkey":"5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh","alpha":421322.591874875,"usd":285000.43192619237,"share_pct":8.576113777068874,"label":"Validator","hl":"gold","is_val":true,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":2,"coldkey":"5Hj8hTzdJirY4o1W4E8ZYu3iVgSViaDAkDQXf6xew7fQH1ay","alpha":314192.6926202,"usd":212533.2342287584,"share_pct":6.3954611782002315,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":3,"coldkey":"5CksQZPhC2LWufmCf4zc7z4muxwywhaQpz5aYcFS4bTJWfjo","alpha":246311.914307104,"usd":166615.80299719537,"share_pct":5.013733045610586,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":4,"coldkey":"5G6nTF2ZKehD9B8TLAX2kf6dXZtkRRmqkVhFsTJWbZv6v8bh","alpha":136718.889421213,"usd":92482.44288093364,"share_pct":2.7829429842182227,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":5,"coldkey":"5EpxhAUFLvTRKhW8MkqjJEygEBEiMAQQooZPHLTt5UNFLysz","alpha":68561.728823389,"usd":46378.05497521337,"share_pct":1.3955890295969453,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":6,"coldkey":"5HTYVBxrF2WbVN8RBtFxAkBGuHJxjgLd9Sze5gxH4KC6GLCv","alpha":54843.655779919,"usd":37098.56980641164,"share_pct":1.1163546436614304,"label":"SN72 owner","hl":"green","is_val":true,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":7,"coldkey":"5Fjzx6fDVKR7A5rU6XwTuecQNgnaSvqAATgiTRshLfKW33EK","alpha":53169.433357043,"usd":35966.05490485639,"share_pct":1.0822754789937816,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":8,"coldkey":"5Gxtn5j2SNMU6CLjHAn7564bQFrANv44EZCmmLRZyHX8vm3y","alpha":53149.54541994,"usd":35952.60186252307,"share_pct":1.0818706556715203,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":9,"coldkey":"5G1JTWFSVqg9M7FA5j9PSFNVtGeLNqc58FqwEAB5URmz9rFo","alpha":48482.303010824,"usd":32795.48157475712,"share_pct":0.9868679126483617,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":10,"coldkey":"5HLAW7BHTBb98Gw3Thm5a6URU2udsuFYA5hiLRMGJbgb8qfA","alpha":47399.527752359,"usd":32063.046565828932,"share_pct":0.9648277847495266,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":11,"coldkey":"5FsnE14afnq6uDQomdekH2nf82uveFcx2LwfiJY5JbtCkfBt","alpha":46910.996799748,"usd":31732.58355437761,"share_pct":0.9548836300471456,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":12,"coldkey":"5EqqEM18K9X2Zcp54WCdEwHxZPe39Pb7cXDRXxdVu1F6wFWh","alpha":45249.474877818,"usd":30608.65980915979,"share_pct":0.9210629868621784,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":13,"coldkey":"5ECjWvd1gWqmziAnGfvqM1jcGd6EHaqQZPXwCti5sFLpvH3o","alpha":42457.828282754,"usd":28720.27190705838,"share_pct":0.8642384080564305,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":14,"coldkey":"5CPdKceHugdZBwWWZqTiF3Hq5mc11E6MsZUWkYxVeLxnkTi5","alpha":36068.733508322,"usd":24398.417808925256,"share_pct":0.7341869824393639,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":15,"coldkey":"5F9VLawB37wvLurga3oY8QnnbQZpwDmqz64xTbPQWu7gPZV5","alpha":32275.98200085,"usd":21832.840176337126,"share_pct":0.6569846935436159,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":16,"coldkey":"5CX9HWTx2J4VRvwR5VLnWNRVxPDHHyFZ6piyogoPUAWmCPHp","alpha":29967.768633152,"usd":20271.46696859063,"share_pct":0.6100005041246724,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":17,"coldkey":"5DywHvwVgfCHRKtf4BBAocyBQNPsxCGTHsQhcjBGRMkrnQG7","alpha":25176.900383599,"usd":17030.720930387237,"share_pct":0.5124813300014025,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":18,"coldkey":"5EgtSSEeDWdbdF8USxBUU2DsMPBvWVD1hX7cUbbXGFsp1E2d","alpha":23133.968597715,"usd":15648.795411554387,"share_pct":0.4708970053712746,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":19,"coldkey":"5GC4gjpbw7AGt2Niw1aTmVBwKtrGC9wRDuoZV8xBa5u5i4mP","alpha":22267.546581554,"usd":15062.710892000352,"share_pct":0.45326079517782525,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":20,"coldkey":"5GjoDduJujeACNfPDRVBBpdEqwRRY8vAygUWjQNwwDAn5EE9","alpha":17803.56355123,"usd":12043.083850183984,"share_pct":0.36239544139605406,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":21,"coldkey":"5Df4bY6SPTHc3np3M9ddV1yxi3jsMsyS7aGzzK7Raq7Qm57U","alpha":16361.550141259,"usd":11067.644952269038,"share_pct":0.333042942122426,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":22,"coldkey":"5EZgbECdA1VLsWhFsqcsrrU5u1ZYYpYDD1JGfyrWVBgVhmrK","alpha":15366.173329998,"usd":10394.329951816964,"share_pct":0.3127818287877641,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":23,"coldkey":"5HYMdk7PeSZtR8dCbNa8841FVqFx5MhibS5z5QYbCpfMShUe","alpha":14834.187219704,"usd":10034.472032644302,"share_pct":0.30195313481861513,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":24,"coldkey":"5GBb1YTHeG1PowySdM4DXms54vsLCJEnb9LPyu7d3cEv9GVm","alpha":14348.621049634,"usd":9706.01452557619,"share_pct":0.29206932891519805,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true},{"rank":25,"coldkey":"5CaARAhuMs4pfhMhf8vzjsXQWbzjg5TCvSuTtYJbfaMRVJdM","alpha":14166.283214163,"usd":9582.673496948997,"share_pct":0.2883578022773667,"label":null,"hl":null,"is_val":false,"entered":"2026-07-12","entered_method":"first-seen","is_new":true}]};
+let DATA=null, FILTER='all';
+const usdC=n=>n>=1e6?'$'+(n/1e6).toFixed(2)+'M':n>=1e3?'$'+(n/1e3).toFixed(1)+'k':'$'+Number(n).toFixed(0);
+const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:d});
+const shortAddr=a=>a.slice(0,8)+'…'+a.slice(-6);
+const fmtDate=s=>{if(!s)return'';const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});};
+const fmtMonYr=s=>{if(!s)return'';const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short'})+" '"+String(d.getFullYear()).slice(2);};
+
+function setFilter(f,el){FILTER=f;document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');draw()}
+
+function draw(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  let hs=DATA.holders.filter(h=>{
+    if(FILTER==='hl'&&!h.hl)return false;
+    if(FILTER==='tagged'&&!h.label)return false;
+    if(FILTER==='val'&&!h.is_val)return false;
+    if(q&&!(h.coldkey.toLowerCase().includes(q)||(h.label||'').toLowerCase().includes(q)))return false;
+    return true;
+  });
+  const max=DATA.holders[0].share_pct;
+  document.getElementById('rows').innerHTML=hs.map(h=>{
+    const HM={green:'track',purple:'trackp',gold:'own',orange:'orange'};
+    const cls=HM[h.hl]||'';
+    const tagCls=HM[h.hl]||'own';
+    const tag=h.label?`<span class="tag ${tagCls}" title="${h.is_val?'Validator':''}">${h.is_val?'◆ ':''}${h.label}</span>`:'';
+    const entTitle=`Reached top-25 size ${h.entered||'?'} · from on-chain SN72 trades`;
+    const newTag=h.entered?(h.is_new
+      ? `<span class="tag gray" style="border-color:color-mix(in srgb,var(--accent) 55%,transparent);color:var(--accent)" title="${entTitle}">New · ${fmtDate(h.entered)}</span>`
+      : `<span class="tag gray" title="${entTitle}">Top 25 · ${fmtMonYr(h.entered)}</span>`):'';
+    const url='https://taostats.io/account/'+h.coldkey;
+    const medal=h.rank<=3?'medal':'';
+    return `<tr class="${cls}">
+      <td class="rank ${medal}">${h.rank}</td>
+      <td><div class="wname">${tag}<a class="addr" href="${url}" target="_blank" rel="noopener" title="${h.coldkey}">${shortAddr(h.coldkey)} ↗</a>${newTag}</div></td>
+      <td class="num">${num(h.alpha,0)} α</td>
+      <td class="num">${usdC(h.usd)}</td>
+      <td class="num share-cell">${h.share_pct.toFixed(2)}%<div class="sharebar"><i style="width:${(h.share_pct/max*100).toFixed(1)}%"></i></div></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem">No wallets match.</td></tr>`;
+}
+
+function render(d,live){
+  DATA=d;
+  const dot=document.getElementById('dot'), st=document.getElementById('statusTxt');
+  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
+  if(live){dot.className='dot';st.textContent='LIVE · '+t;}
+  else{dot.className='dot snap';st.textContent='SNAPSHOT · '+t+' · run refresh.py for live';}
+  const top25=d.holders.reduce((a,h)=>a+h.share_pct,0);
+  const tagged=d.holders.filter(h=>h.label).length;
+  const vals=d.holders.filter(h=>h.is_val);
+  const valVal=vals.reduce((a,h)=>a+h.usd,0);
+  document.getElementById('stats').innerHTML=[
+    ['Top-25 concentration',top25.toFixed(1)+'%'],
+    ['Tagged wallets',tagged+' / 25'],
+    ['Validators (top 25)',vals.length+' · '+usdC(valVal)],
+    ['Total holders',num(d.subnet.holder_count)],
+  ].map(s=>`<div class="stat"><div class="stat-num">${s[0]==='Top-25 concentration'?'<span class="up">'+s[1]+'</span>':s[1]}</div><div class="stat-label">${s[0]}</div></div>`).join('');
+  draw();
+}
+
+function loadData(){
+  try{
+    if(typeof fetch!=='function'){render(FALLBACK,false);return;}
+    fetch('./data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()})
+      .then(d=>render(d,true)).catch(()=>render(FALLBACK,false));
+  }catch(e){render(FALLBACK,false);}
+}
+function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
+loadData();
+// auto-refresh every 90s (pauses when tab hidden)
+setInterval(function(){if(!document.hidden)loadData();}, 90000);
+</script>
+</body>
+</html>

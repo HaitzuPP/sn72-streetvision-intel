@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SN72 · Transactions — Token Intelligence</title>
+<meta name="description" content="Large SN72 (StreetVision) trades into the pool and daily net inflow, from tracked whale wallets. Live tao.com data.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 15%,var(--bg));--amber:#e0a800;--gold:#d4a017;--gold-dim:color-mix(in srgb,#d4a017 15%,var(--bg));--purple:#a855f7;--purple-dim:color-mix(in srgb,#a855f7 16%,var(--bg))}
+[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 10%,#fff);--amber:#b7791f;--gold:#a37514;--gold-dim:color-mix(in srgb,#a37514 10%,#fff);--purple:#7c3aed;--purple-dim:color-mix(in srgb,#7c3aed 12%,#fff)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial, Helvetica, sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:Arial, Helvetica, sans-serif;font-weight:400}
+header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:Arial, Helvetica, sans-serif;font-size:1.05rem}
+.nav-brand svg{width:26px;height:26px;color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.5rem}
+.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.5px;transition:color .2s}
+.nav-link:hover,.nav-link.active{color:var(--text)}
+.theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.35rem .5rem;border-radius:6px;font-size:.85rem;transition:all .2s}
+.theme-toggle:hover{border-color:var(--border-hover);color:var(--text)}
+.hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:.5rem}
+.hamburger svg{width:24px;height:24px}
+main{flex:1;width:100%;max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem 3rem}
+.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.hero-title{font-size:clamp(28px,5vw,46px);letter-spacing:-0.02em;line-height:1.1;margin-bottom:.75rem}
+.hero-title .accent{color:var(--accent)}
+.hero-sub{font-size:14.5px;color:var(--text-sec);max-width:720px;line-height:1.7}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
+.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
+.status{font-family:Arial, Helvetica, sans-serif;font-size:.62rem;color:var(--text-muted);letter-spacing:.5px}
+.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.2rem .6rem;border-radius:6px;font-size:.62rem;font-family:Arial,Helvetica,sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .2s}
+.rbtn:hover{border-color:var(--accent);color:var(--accent)}
+.rbtn:active{transform:scale(.96)}
+.stats{display:flex;gap:2.5rem;margin:2rem 0 1.5rem;flex-wrap:wrap}
+.stat{min-width:110px}
+.stat-num{font-family:Arial, Helvetica, sans-serif;font-size:1.5rem;line-height:1.1}
+.stat-num.up{color:var(--accent)}
+.stat-num.down{color:var(--red)}
+.stat-label{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem}
+.panel{border:1px solid var(--border);border-radius:12px;background:var(--bg-card);padding:1.25rem 1.35rem;margin-bottom:2rem}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.35rem}
+.panel-title{font-size:1.05rem}
+.panel-sub{font-size:.72rem;color:var(--text-muted)}
+.legend{display:flex;gap:1rem;font-size:.68rem;color:var(--text-sec);flex-wrap:wrap}
+.legend span{display:flex;align-items:center;gap:.35rem}
+.swatch{width:10px;height:10px;border-radius:2px;display:inline-block}
+.chart-scroll{overflow-x:auto;padding-top:.5rem}
+#chart{display:block;min-width:640px;width:100%;height:auto}
+.bar{cursor:pointer;transition:opacity .15s}
+.bar:hover{opacity:.75}
+.controls{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
+.filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
+.filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
+.search-box{margin-left:auto;padding:.4rem .75rem .4rem 2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem;font-family:inherit;width:230px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:8px center}
+.search-box:focus{outline:none;border-color:var(--accent)}
+.table-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;padding:.7rem .9rem;font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:500;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card);cursor:pointer;user-select:none}
+thead th.num{text-align:right}
+thead th .arrow{color:var(--accent);font-size:.6rem}
+tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--bg-card)}
+td{padding:.7rem .9rem;font-size:.85rem;vertical-align:middle}
+td.num{text-align:right;font-family:Arial, Helvetica, sans-serif;white-space:nowrap}
+.addr{font-family:Arial, Helvetica, sans-serif;font-size:.78rem;color:var(--text-sec);text-decoration:none}
+.addr:hover{color:var(--accent)}
+.badge{font-size:.6rem;padding:.14rem .5rem;border-radius:4px;font-family:Arial, Helvetica, sans-serif;letter-spacing:.3px;white-space:nowrap;font-weight:600}
+.badge.buy{background:var(--accent);color:#001b0e}
+.badge.sell{background:var(--red);color:#fff}
+.wtag{font-size:.6rem;padding:.12rem .45rem;border-radius:4px;background:color-mix(in srgb,var(--purple) 18%,var(--bg));color:var(--purple);border:1px solid color-mix(in srgb,var(--purple) 40%,transparent);white-space:nowrap}
+.wtag.w3{background:color-mix(in srgb,var(--text-muted) 20%,var(--bg));color:var(--text-sec);border-color:var(--border)}
+.pos{color:var(--accent)}
+.neg{color:var(--red)}
+.tip{position:fixed;pointer-events:none;background:var(--bg-card);border:1px solid var(--border-hover);border-radius:8px;padding:.5rem .65rem;font-size:.72rem;color:var(--text);box-shadow:0 6px 24px rgba(0,0,0,.4);opacity:0;transition:opacity .12s;z-index:200;white-space:nowrap}
+.tip b{font-weight:600}
+footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;margin-top:2rem}
+.footer-text{font-size:.75rem;color:var(--text-muted)}
+.footer-text a{color:var(--text-sec);text-decoration:none}
+.footer-text a:hover{color:var(--text)}
+@media(max-width:768px){.hamburger{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}.nav-links.open{display:flex}.search-box{width:100%;margin-left:0;order:10}.hide-sm{display:none}td,thead th{padding:.6rem .5rem;font-size:.8rem}.stats{gap:1.5rem}}
+</style>
+</head>
+<body>
+<header><nav>
+<a href="index.html" class="nav-brand">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M8 3.5L12 6l4-2.5M4.5 8L8 12l-3.5 4M8 20.5L12 18l4 2.5M19.5 16L16 12l3.5-4"/></svg>
+SN72 · StreetVision
+</a>
+<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
+<div class="nav-links">
+<a href="index.html" class="nav-link">OVERVIEW</a>
+<a href="wallets.html" class="nav-link">WALLETS</a>
+<a href="analytics.html" class="nav-link">ANALYTICS</a>
+<a href="transactions.html" class="nav-link active">TRANSACTIONS</a>
+<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+</div>
+</nav></header>
+
+<main>
+<div class="hero-label"><span>Transactions · SN72 Alpha</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading&hellip;</span></span><button class="rbtn" onclick="manualRefresh()" title="Reload latest data">&#8635; Refresh</button></div>
+<h1 class="hero-title">Large trades <span class="accent">into the pool</span></h1>
+<p class="hero-sub">Every tracked SN72 (StreetVision) trade above <span style="color:var(--accent)">$5k</span> from the monitored whale wallets, and the daily <b>net inflow</b> &mdash; USD bought into the pool minus USD sold out. <span style="color:var(--accent)">Buys</span> add TAO to the pool; <span style="color:var(--red)">sells</span> pull it out. Click an address to open it on taostats.</p>
+
+<div class="stats" id="stats"></div>
+
+<div class="panel">
+  <div class="panel-head">
+    <div>
+      <div class="panel-title">Net $ inflow per day</div>
+      <div class="panel-sub">Bought per day &minus; sold per day, across tracked wallets</div>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--accent)"></i> Net inflow</span>
+      <span><i class="swatch" style="background:var(--red)"></i> Net outflow</span>
+    </div>
+  </div>
+  <div class="chart-scroll"><svg id="chart" viewBox="0 0 900 300" preserveAspectRatio="xMinYMid meet"></svg></div>
+</div>
+
+<div class="controls">
+<button class="filter-pill active" data-f="poolin" onclick="setFilter('poolin',this)">Into pool &gt;$5k</button>
+<button class="filter-pill" data-f="all" onclick="setFilter('all',this)">All &gt;$5k</button>
+<button class="filter-pill" data-f="buy" onclick="setFilter('buy',this)">Buys</button>
+<button class="filter-pill" data-f="sell" onclick="setFilter('sell',this)">Sells</button>
+<input class="search-box" id="search" placeholder="Search date, wallet or address&hellip;" oninput="draw()">
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr>
+<th data-s="ts">Date <span class="arrow" id="ar-ts">&darr;</span></th>
+<th>Wallet</th>
+<th>Side</th>
+<th class="num" data-s="alpha">Alpha <span class="arrow" id="ar-alpha"></span></th>
+<th class="num" data-s="price_usd">Price <span class="arrow" id="ar-price_usd"></span></th>
+<th class="num" data-s="usd">Trade value <span class="arrow" id="ar-usd"></span></th>
+<th class="hide-sm"></th>
+</tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</main>
+
+<footer><p class="footer-text">SN72 Transactions &mdash; a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Trades via tao.com (SN72 stake add/remove). Not financial advice.</p></footer>
+
+<div class="tip" id="tip"></div>
+
+<script>(function(){var t=localStorage.getItem('sn72-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+<script>
+function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn72-theme',t);if(DATA)build()}
+const FALLBACK = {"generated_at":"2026-07-12T09:54:38Z","price_tao":0.003215466,"price_usd":0.6764423209729807,"tao_usd":210.3206750504633,"source":"taostats dTAO delegation events (SN72 stake add/remove) + executed USD. PnL on a cash-flow basis (rewards/emissions count as gains).","wallets":[{"name":"Validator","key":"validator","coldkeys":["5FjP8fFbMb6pEHfRZyRegsmwRUMDuLFNcaBu1TerWMPEKgNh"],"note":"rank #1 \u00b7 full history","current_alpha":421322.591874875,"current_value_usd":285000.43192619237,"n_buys":180,"n_sells":44,"n_trades":224,"alpha_bought":638986.961105348,"alpha_sold":249126.437097647,"invested_usd":680002,"proceeds_usd":222316,"invested_tao":2267.05,"proceeds_tao":856.403283916,"avg_buy_price_usd":1.064187599107973,"realized_pnl_usd":-42801.264969268406,"unrealized_pnl_usd":-129884.30310453923,"total_pnl_usd":-172685.56807380763,"roi_pct":-25.394861790672323,"first_trade":"2025-08-05","monthly":[{"month":"2025-08","buy_usd":7439.0,"sell_usd":7634.0,"avg_buy_usd":1.2705243118622973},{"month":"2026-05","buy_usd":623784.0,"sell_usd":107018.0,"avg_buy_usd":1.0926980703698155},{"month":"2026-06","buy_usd":33988.0,"sell_usd":107664.0,"avg_buy_usd":0.8532878748848137},{"month":"2026-07","buy_usd":14791.0,"sell_usd":0.0,"avg_buy_usd":0.659304403915551}],"recent":[{"ts":"2026-07-08","side":"buy","alpha":13595.1,"price_usd":0.64,"usd":8766},{"ts":"2026-07-05","side":"buy","alpha":8839.1,"price_usd":0.68,"usd":6025},{"ts":"2026-06-30","side":"sell","alpha":1510.8,"price_usd":0.68,"usd":1028},{"ts":"2026-06-30","side":"sell","alpha":556.3,"price_usd":0.68,"usd":379},{"ts":"2026-06-30","side":"sell","alpha":3114.9,"price_usd":0.68,"usd":2123},{"ts":"2026-06-30","side":"sell","alpha":6442.5,"price_usd":0.67,"usd":4348},{"ts":"2026-06-28","side":"sell","alpha":19990.0,"price_usd":0.68,"usd":13595},{"ts":"2026-06-28","side":"buy","alpha":1197.6,"price_usd":0.68,"usd":820},{"ts":"2026-06-28","side":"sell","alpha":3803.5,"price_usd":0.69,"usd":2609},{"ts":"2026-06-28","side":"sell","alpha":1728.6,"price_usd":0.69,"usd":1189},{"ts":"2026-06-28","side":"sell","alpha":4749.4,"price_usd":0.68,"usd":3252},{"ts":"2026-06-28","side":"sell","alpha":7336.9,"price_usd":0.69,"usd":5070},{"ts":"2026-06-23","side":"sell","alpha":6198.6,"price_usd":0.71,"usd":4391},{"ts":"2026-06-23","side":"sell","alpha":7676.3,"price_usd":0.72,"usd":5519},{"ts":"2026-06-22","side":"sell","alpha":6176.5,"price_usd":0.75,"usd":4642},{"ts":"2026-06-21","side":"sell","alpha":6166.7,"price_usd":0.76,"usd":4663},{"ts":"2026-06-21","side":"sell","alpha":6136.2,"price_usd":0.76,"usd":4650},{"ts":"2026-06-17","side":"sell","alpha":6934.7,"price_usd":0.82,"usd":5702},{"ts":"2026-06-16","side":"sell","alpha":7894.9,"price_usd":0.85,"usd":6726},{"ts":"2026-06-11","side":"sell","alpha":4997.5,"price_usd":0.68,"usd":3407},{"ts":"2026-06-05","side":"sell","alpha":8595.9,"price_usd":0.64,"usd":5492},{"ts":"2026-06-02","side":"buy","alpha":30928.7,"price_usd":0.85,"usd":26382},{"ts":"2026-06-02","side":"sell","alpha":20758.6,"price_usd":0.85,"usd":17589},{"ts":"2026-06-02","side":"sell","alpha":13197.4,"price_usd":0.86,"usd":11290},{"ts":"2026-06-01","side":"buy","alpha":6626.9,"price_usd":0.88,"usd":5846},{"ts":"2026-06-01","side":"buy","alpha":1078.7,"price_usd":0.87,"usd":940},{"ts":"2026-05-31","side":"buy","alpha":361.4,"price_usd":0.87,"usd":314},{"ts":"2026-05-31","side":"buy","alpha":3420.3,"price_usd":0.89,"usd":3034},{"ts":"2026-05-30","side":"buy","alpha":3209.9,"price_usd":0.87,"usd":2783},{"ts":"2026-05-29","side":"buy","alpha":2018.1,"price_usd":0.88,"usd":1775},{"ts":"2026-05-26","side":"buy","alpha":3013.9,"price_usd":0.98,"usd":2955},{"ts":"2026-05-26","side":"buy","alpha":2890.5,"price_usd":0.99,"usd":2861},{"ts":"2026-05-26","side":"buy","alpha":4424.7,"price_usd":0.99,"usd":4376},{"ts":"2026-05-26","side":"buy","alpha":2391.0,"price_usd":0.99,"usd":2363},{"ts":"2026-05-26","side":"buy","alpha":3662.2,"price_usd":0.99,"usd":3628},{"ts":"2026-05-25","side":"sell","alpha":4997.5,"price_usd":0.99,"usd":4970},{"ts":"2026-05-25","side":"sell","alpha":9995.0,"price_usd":1.0,"usd":10017},{"ts":"2026-05-23","side":"buy","alpha":8127.6,"price_usd":0.93,"usd":7519},{"ts":"2026-05-22","side":"buy","alpha":370.2,"price_usd":1.0,"usd":369},{"ts":"2026-05-22","side":"buy","alpha":2851.2,"price_usd":1.0,"usd":2839}]},{"name":"Wallet #2","key":"wallet2","coldkeys":["5Hj8hTzdJirY4o1W4E8ZYu3iVgSViaDAkDQXf6xew7fQH1ay"],"note":"rank #2 \u00b7 full history","current_alpha":314192.6926202,"current_value_usd":212533.2342287584,"n_buys":10,"n_sells":0,"n_trades":10,"alpha_bought":274989.079999999,"alpha_sold":0,"invested_usd":240275,"proceeds_usd":0,"invested_tao":960.377328477,"proceeds_tao":0,"avg_buy_price_usd":0.8737619690207366,"realized_pnl_usd":0.0,"unrealized_pnl_usd":-27741.765771241597,"total_pnl_usd":-27741.765771241597,"roi_pct":-11.54583946363192,"first_trade":"2025-11-13","monthly":[{"month":"2025-11","buy_usd":27071.0,"sell_usd":0.0,"avg_buy_usd":0.7777241821341492},{"month":"2026-01","buy_usd":64269.0,"sell_usd":0.0,"avg_buy_usd":0.9364634556461877},{"month":"2026-02","buy_usd":63.0,"sell_usd":0.0,"avg_buy_usd":0.63},{"month":"2026-03","buy_usd":83.0,"sell_usd":0.0,"avg_buy_usd":0.83},{"month":"2026-04","buy_usd":122.0,"sell_usd":0.0,"avg_buy_usd":1.22},{"month":"2026-05","buy_usd":124436.0,"sell_usd":0.0,"avg_buy_usd":0.9155768886366957},{"month":"2026-06","buy_usd":24231.0,"sell_usd":0.0,"avg_buy_usd":0.6856208630656881}],"recent":[{"ts":"2026-06-09","side":"buy","alpha":35341.7,"price_usd":0.69,"usd":24231},{"ts":"2026-05-19","side":"buy","alpha":135809.9,"price_usd":0.92,"usd":124327},{"ts":"2026-05-14","side":"buy","alpha":100.0,"price_usd":1.09,"usd":109},{"ts":"2026-04-09","side":"buy","alpha":100.0,"price_usd":1.22,"usd":122},{"ts":"2026-03-10","side":"buy","alpha":100.0,"price_usd":0.83,"usd":83},{"ts":"2026-02-10","side":"buy","alpha":100.0,"price_usd":0.63,"usd":63},{"ts":"2026-01-22","side":"buy","alpha":68529.5,"price_usd":0.94,"usd":64166},{"ts":"2026-01-13","side":"buy","alpha":100.0,"price_usd":1.03,"usd":103},{"ts":"2025-11-20","side":"buy","alpha":34708.0,"price_usd":0.78,"usd":26986},{"ts":"2025-11-13","side":"buy","alpha":100.0,"price_usd":0.85,"usd":85}]},{"name":"Wallet #3","key":"wallet3","coldkeys":["5CksQZPhC2LWufmCf4zc7z4muxwywhaQpz5aYcFS4bTJWfjo"],"note":"rank #3 \u00b7 full history","current_alpha":246311.914307104,"current_value_usd":166615.80299719537,"n_buys":6,"n_sells":44,"n_trades":50,"alpha_bought":184700.28095306098,"alpha_sold":44718.44788807,"invested_usd":206409,"proceeds_usd":42627,"invested_tao":587.815363049,"proceeds_tao":133.003526483,"avg_buy_price_usd":1.117534845831967,"realized_pnl_usd":-7347.423766439155,"unrealized_pnl_usd":10181.226763634506,"total_pnl_usd":2833.8029971953656,"roi_pct":1.3729067032907314,"first_trade":"2025-07-23","monthly":[{"month":"2025-07","buy_usd":45960.0,"sell_usd":0.0,"avg_buy_usd":1.5320152714825812},{"month":"2025-09","buy_usd":124266.0,"sell_usd":9536.0,"avg_buy_usd":1.0595584465436965},{"month":"2025-10","buy_usd":36087.0,"sell_usd":9645.0,"avg_buy_usd":0.9669704833780595},{"month":"2025-11","buy_usd":96.0,"sell_usd":10159.0,"avg_buy_usd":0.96},{"month":"2025-12","buy_usd":0.0,"sell_usd":2660.0,"avg_buy_usd":0.0},{"month":"2026-01","buy_usd":0.0,"sell_usd":5356.0,"avg_buy_usd":0.0},{"month":"2026-05","buy_usd":0.0,"sell_usd":4645.0,"avg_buy_usd":0.0},{"month":"2026-06","buy_usd":0.0,"sell_usd":626.0,"avg_buy_usd":0.0}],"recent":[{"ts":"2026-06-26","side":"sell","alpha":931.2,"price_usd":0.67,"usd":626},{"ts":"2026-05-27","side":"sell","alpha":860.4,"price_usd":0.97,"usd":831},{"ts":"2026-05-26","side":"sell","alpha":1158.1,"price_usd":0.98,"usd":1136},{"ts":"2026-05-15","side":"sell","alpha":839.9,"price_usd":1.02,"usd":858},{"ts":"2026-05-14","side":"sell","alpha":839.1,"price_usd":1.05,"usd":885},{"ts":"2026-05-12","side":"sell","alpha":828.5,"price_usd":1.13,"usd":935},{"ts":"2026-01-26","side":"sell","alpha":962.9,"price_usd":0.97,"usd":932},{"ts":"2026-01-09","side":"sell","alpha":908.2,"price_usd":0.94,"usd":853},{"ts":"2026-01-08","side":"sell","alpha":908.2,"price_usd":0.88,"usd":803},{"ts":"2026-01-07","side":"sell","alpha":1540.0,"price_usd":0.9,"usd":1384},{"ts":"2026-01-07","side":"sell","alpha":1537.8,"price_usd":0.9,"usd":1384},{"ts":"2025-12-25","side":"sell","alpha":948.9,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":948.0,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":947.1,"price_usd":0.7,"usd":665},{"ts":"2025-12-25","side":"sell","alpha":946.3,"price_usd":0.7,"usd":665},{"ts":"2025-11-23","side":"sell","alpha":782.0,"price_usd":0.73,"usd":571},{"ts":"2025-11-23","side":"sell","alpha":1171.8,"price_usd":0.73,"usd":856},{"ts":"2025-11-13","side":"sell","alpha":1183.0,"price_usd":0.89,"usd":1057},{"ts":"2025-11-11","side":"sell","alpha":1962.3,"price_usd":0.95,"usd":1871},{"ts":"2025-11-11","side":"buy","alpha":100.0,"price_usd":0.96,"usd":96},{"ts":"2025-11-06","side":"sell","alpha":1550.3,"price_usd":0.96,"usd":1484},{"ts":"2025-11-06","side":"sell","alpha":1932.3,"price_usd":0.98,"usd":1898},{"ts":"2025-11-05","side":"sell","alpha":1156.1,"price_usd":1.03,"usd":1195},{"ts":"2025-11-04","side":"sell","alpha":1154.4,"price_usd":1.06,"usd":1227},{"ts":"2025-10-28","side":"sell","alpha":1148.4,"price_usd":1.16,"usd":1331},{"ts":"2025-10-27","side":"sell","alpha":1908.5,"price_usd":1.05,"usd":1998},{"ts":"2025-10-20","side":"sell","alpha":1128.9,"price_usd":1.16,"usd":1308},{"ts":"2025-10-16","side":"sell","alpha":742.5,"price_usd":1.04,"usd":770},{"ts":"2025-10-15","side":"sell","alpha":741.8,"price_usd":1.2,"usd":888},{"ts":"2025-10-14","side":"sell","alpha":739.1,"price_usd":1.12,"usd":829},{"ts":"2025-10-13","side":"sell","alpha":737.5,"price_usd":1.12,"usd":825},{"ts":"2025-10-08","side":"buy","alpha":37319.7,"price_usd":0.97,"usd":36087},{"ts":"2025-10-07","side":"sell","alpha":1059.8,"price_usd":0.98,"usd":1040},{"ts":"2025-10-03","side":"sell","alpha":691.9,"price_usd":0.95,"usd":656},{"ts":"2025-09-26","side":"sell","alpha":677.8,"price_usd":0.9,"usd":609},{"ts":"2025-09-24","side":"sell","alpha":336.5,"price_usd":0.93,"usd":312},{"ts":"2025-09-24","side":"sell","alpha":100.0,"price_usd":0.93,"usd":93},{"ts":"2025-09-24","side":"sell","alpha":700.0,"price_usd":0.93,"usd":650},{"ts":"2025-09-24","side":"sell","alpha":700.0,"price_usd":0.93,"usd":651},{"ts":"2025-09-23","side":"sell","alpha":669.7,"price_usd":0.95,"usd":633}]}]};
+
+let DATA=null, FILTER='poolin', SORT={k:'ts',dir:-1}, TX=[], DAILY=[];
+const THRESH=5000;
+const usdC=n=>{const a=Math.abs(n),s=n<0?'-':'';return a>=1e6?s+'$'+(a/1e6).toFixed(2)+'M':a>=1e3?s+'$'+(a/1e3).toFixed(1)+'k':s+'$'+a.toFixed(0)};
+const usdFull=n=>{const s=n<0?'-':'';return s+'$'+Math.abs(Math.round(n)).toLocaleString('en-US')};
+const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:d});
+const usd4=n=>'$'+Number(n).toFixed(4);
+const shortA=a=>a.slice(0,6)+'…'+a.slice(-4);
+const fmtDate=s=>{const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});};
+
+// Flatten every wallet's recent trades into one transaction list
+function buildTx(d){
+  const out=[];
+  (d.wallets||[]).forEach(w=>{
+    const ck=(w.coldkeys&&w.coldkeys[0])||'';
+    (w.recent||[]).forEach(t=>{
+      out.push({ts:t.ts,side:t.side,alpha:t.alpha,price_usd:t.price_usd,usd:t.usd,wallet:w.name,wkey:w.key,coldkey:ck});
+    });
+  });
+  return out;
+}
+// Daily net inflow = sum(buy usd) - sum(sell usd)
+function buildDaily(tx){
+  const m={};
+  tx.forEach(t=>{
+    if(!m[t.ts])m[t.ts]={ts:t.ts,buy:0,sell:0};
+    if(t.side==='buy')m[t.ts].buy+=t.usd; else m[t.ts].sell+=t.usd;
+  });
+  return Object.values(m).map(d=>({...d,net:d.buy-d.sell})).sort((a,b)=>a.ts<b.ts?-1:1);
+}
+
+function chart(){
+  const svg=document.getElementById('chart');
+  const W=900,H=300,padL=52,padR=14,padT=18,padB=54;
+  const iw=W-padL-padR, ih=H-padT-padB;
+  const n=DAILY.length||1;
+  const maxUp=Math.max(0,...DAILY.map(d=>d.net));
+  const maxDn=Math.min(0,...DAILY.map(d=>d.net));
+  const span=Math.max(1,maxUp-maxDn);
+  const y=v=>padT+(maxUp-v)/span*ih;
+  const zeroY=y(0);
+  const gap=iw/n, bw=Math.min(30,gap*0.62);
+  // gridlines
+  const ticks=[maxUp, maxUp/2, 0, maxDn/2, maxDn].filter((v,i,a)=>a.indexOf(v)===i);
+  let grid='';
+  ticks.forEach(v=>{const yy=y(v);grid+=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="var(--border)" stroke-width="1"/><text x="${padL-8}" y="${(yy+3).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--text-muted)">${usdC(v)}</text>`;});
+  // zero baseline emphasised
+  grid+=`<line x1="${padL}" y1="${zeroY.toFixed(1)}" x2="${W-padR}" y2="${zeroY.toFixed(1)}" stroke="var(--border-hover)" stroke-width="1.5"/>`;
+  let bars='';
+  DAILY.forEach((d,i)=>{
+    const cx=padL+i*gap+gap/2;
+    const x=cx-bw/2;
+    const up=d.net>=0;
+    const yy=up?y(d.net):zeroY;
+    const h=Math.max(1,Math.abs(zeroY-y(d.net)));
+    const col=up?'var(--accent)':'var(--red)';
+    bars+=`<rect class="bar" x="${x.toFixed(1)}" y="${yy.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}" data-i="${i}"/>`;
+  });
+  // x labels: show a subset to avoid crowding
+  let xl='';
+  const step=Math.ceil(n/12);
+  DAILY.forEach((d,i)=>{
+    if(i%step!==0 && i!==n-1)return;
+    const cx=padL+i*gap+gap/2;
+    xl+=`<text x="${cx.toFixed(1)}" y="${H-padB+16}" text-anchor="middle" font-size="8.5" fill="var(--text-muted)" transform="rotate(-40 ${cx.toFixed(1)} ${H-padB+16})">${fmtDate(d.ts)}</text>`;
+  });
+  svg.innerHTML=grid+bars+xl;
+  // tooltip wiring
+  const tip=document.getElementById('tip');
+  svg.querySelectorAll('.bar').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const d=DAILY[+b.dataset.i];
+      tip.innerHTML=`<b>${fmtDate(d.ts)}</b><br>Net <b class="${d.net>=0?'pos':'neg'}">${usdFull(d.net)}</b><br>Buys ${usdC(d.buy)} · Sells ${usdC(d.sell)}`;
+      tip.style.opacity='1';
+      tip.style.left=Math.min(e.clientX+14,window.innerWidth-190)+'px';
+      tip.style.top=(e.clientY+14)+'px';
+    });
+    b.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
+  });
+}
+
+function setFilter(f,el){FILTER=f;document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');draw()}
+function setSort(k){if(SORT.k===k)SORT.dir*=-1;else{SORT.k=k;SORT.dir=(k==='ts')?-1:-1;}draw()}
+
+function draw(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  let rows=TX.filter(t=>{
+    if(t.usd<THRESH)return false;
+    if(FILTER==='poolin'&&t.side!=='buy')return false;
+    if(FILTER==='buy'&&t.side!=='buy')return false;
+    if(FILTER==='sell'&&t.side!=='sell')return false;
+    if(q&&!((t.ts||'').toLowerCase().includes(q)||(t.wallet||'').toLowerCase().includes(q)||(t.coldkey||'').toLowerCase().includes(q)))return false;
+    return true;
+  });
+  const k=SORT.k;
+  rows.sort((a,b)=>{let x=a[k],y=b[k];if(k==='ts'){x=a.ts;y=b.ts;}if(x<y)return -1*SORT.dir;if(x>y)return 1*SORT.dir;return 0;});
+  ['ts','alpha','price_usd','usd'].forEach(c=>{const el=document.getElementById('ar-'+c);if(el)el.innerHTML=(SORT.k===c)?(SORT.dir===1?'↑':'↓'):'';});
+  document.getElementById('rows').innerHTML=rows.map(t=>{
+    const url='https://taostats.io/account/'+t.coldkey;
+    const wc=(DATA.wallets[0]&&t.wkey===DATA.wallets[0].key)?'':'w3';
+    return `<tr>
+      <td>${fmtDate(t.ts)}</td>
+      <td><span class="wtag ${wc}">${t.wallet}</span></td>
+      <td><span class="badge ${t.side}">${t.side.toUpperCase()}</span></td>
+      <td class="num">${num(t.alpha,0)} α</td>
+      <td class="num">${usd4(t.price_usd)}</td>
+      <td class="num" style="font-weight:600">${usdFull(t.usd)}</td>
+      <td class="num hide-sm"><a class="addr" href="${url}" target="_blank" rel="noopener" title="${t.coldkey}">${shortA(t.coldkey)} ↗</a></td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem">No transactions match.</td></tr>`;
+}
+
+function build(){
+  TX=buildTx(DATA);
+  DAILY=buildDaily(TX);
+  const big=TX.filter(t=>t.usd>=THRESH);
+  const poolIn=big.filter(t=>t.side==='buy');
+  const totBuy=TX.filter(t=>t.side==='buy').reduce((a,t)=>a+t.usd,0);
+  const totSell=TX.filter(t=>t.side==='sell').reduce((a,t)=>a+t.usd,0);
+  const net=totBuy-totSell;
+  const topDay=DAILY.reduce((m,d)=>Math.abs(d.net)>Math.abs(m.net)?d:m,{net:0,ts:''});
+  document.getElementById('stats').innerHTML=[
+    ['Net inflow (period)',usdC(net),net>=0?'up':'down'],
+    ['Bought into pool',usdC(totBuy),''],
+    ['Sold out of pool',usdC(totSell),''],
+    ['Trades &gt;$5k',num(big.length)+' · '+num(poolIn.length)+' in',''],
+    ['Biggest net day',usdC(topDay.net),topDay.net>=0?'up':'down'],
+  ].map(s=>`<div class="stat"><div class="stat-num ${s[2]}">${s[1]}</div><div class="stat-label">${s[0]}</div></div>`).join('');
+  chart();
+  draw();
+}
+
+function render(d,live){
+  DATA=d;
+  const dot=document.getElementById('dot'), st=document.getElementById('statusTxt');
+  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
+  if(live){dot.className='dot';st.textContent='LIVE · '+t;}
+  else{dot.className='dot snap';st.textContent='SNAPSHOT · '+t;}
+  build();
+}
+
+function loadData(){
+  try{
+    if(typeof fetch!=='function'){render(FALLBACK,false);return;}
+    fetch('./trades_data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()})
+      .then(d=>render(d,true)).catch(()=>render(FALLBACK,false));
+  }catch(e){render(FALLBACK,false);}
+}
+function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
+document.querySelectorAll('thead th[data-s]').forEach(th=>th.addEventListener('click',()=>setSort(th.dataset.s)));
+window.addEventListener('resize',()=>{if(DATA)chart();});
+loadData();
+setInterval(function(){if(!document.hidden)loadData();},90000);
+</script>
+</body>
+</html>
