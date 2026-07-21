@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-07-21T12:40:02Z",
- "price_tao": 0.00317624,
- "price_usd": 0.640025362795888,
- "tao_usd": 201.65645389477714,
+ "generated_at": "2026-07-21T18:36:08Z",
+ "price_tao": 0.003167041,
+ "price_usd": 0.6295287277225371,
+ "tao_usd": 198.58674015352148,
  "source": "taostats dTAO delegation events (SN72 stake add/remove) + executed USD. PnL on a cash-flow basis (rewards/emissions count as gains).",
  "wallets": [
   {
@@ -13,7 +13,7 @@
    ],
    "note": "rank #1 \u00b7 full history",
    "current_alpha": 428160.544764285,
-   "current_value_usd": 274033.6079976465,
+   "current_value_usd": 269539.3630064487,
    "n_buys": 180,
    "n_sells": 44,
    "n_trades": 224,
@@ -25,9 +25,9 @@
    "proceeds_tao": 856.4032839159997,
    "avg_buy_price_usd": 1.0641875991079728,
    "realized_pnl_usd": -42801.264969268406,
-   "unrealized_pnl_usd": -140851.1270330851,
-   "total_pnl_usd": -183652.3920023535,
-   "roi_pct": -27.007625272036478,
+   "unrealized_pnl_usd": -145345.37202428287,
+   "total_pnl_usd": -188146.63699355128,
+   "roi_pct": -27.668541709223106,
    "first_trade": "2025-08-05",
    "monthly": [
     {
@@ -346,7 +346,7 @@
    ],
    "note": "rank #2 \u00b7 full history",
    "current_alpha": 314195.295409998,
-   "current_value_usd": 201092.95793354514,
+   "current_value_usd": 197794.96457586272,
    "n_buys": 10,
    "n_sells": 0,
    "n_trades": 10,
@@ -358,9 +358,9 @@
    "proceeds_tao": 0,
    "avg_buy_price_usd": 0.8737619690207366,
    "realized_pnl_usd": 0.0,
-   "unrealized_pnl_usd": -39182.04206645486,
-   "total_pnl_usd": -39182.04206645486,
-   "roi_pct": -16.307165567143837,
+   "unrealized_pnl_usd": -42480.035424137284,
+   "total_pnl_usd": -42480.035424137284,
+   "roi_pct": -17.679756705498818,
    "first_trade": "2025-11-13",
    "monthly": [
     {
@@ -486,22 +486,22 @@
     "5CksQZPhC2LWufmCf4zc7z4muxwywhaQpz5aYcFS4bTJWfjo"
    ],
    "note": "rank #3 \u00b7 full history",
-   "current_alpha": 246339.916846554,
-   "current_value_usd": 157663.7946508246,
+   "current_alpha": 242744.932010941,
+   "current_value_usd": 152814.90820994147,
    "n_buys": 6,
-   "n_sells": 44,
-   "n_trades": 50,
+   "n_sells": 48,
+   "n_trades": 54,
    "alpha_bought": 184700.28095306098,
-   "alpha_sold": 44718.44788807,
+   "alpha_sold": 48339.786119651995,
    "invested_usd": 206409,
-   "proceeds_usd": 42627,
+   "proceeds_usd": 44920,
    "invested_tao": 587.815363049,
-   "proceeds_tao": 133.003526483,
+   "proceeds_tao": 144.490164335,
    "avg_buy_price_usd": 1.117534845831967,
-   "realized_pnl_usd": -7347.423766439155,
-   "unrealized_pnl_usd": 1229.2184172637353,
-   "total_pnl_usd": -6118.205349175405,
-   "roi_pct": -2.9641175283904313,
+   "realized_pnl_usd": -9101.395428775548,
+   "unrealized_pnl_usd": 427.3036387170141,
+   "total_pnl_usd": -8674.091790058534,
+   "roi_pct": -4.202380608432062,
    "first_trade": "2025-07-23",
    "monthly": [
     {
@@ -551,9 +551,43 @@
      "buy_usd": 0.0,
      "sell_usd": 626.0,
      "avg_buy_usd": 0.0
+    },
+    {
+     "month": "2026-07",
+     "buy_usd": 0.0,
+     "sell_usd": 2293.0,
+     "avg_buy_usd": 0.0
     }
    ],
    "recent": [
+    {
+     "ts": "2026-07-21",
+     "side": "sell",
+     "alpha": 0.2,
+     "price_usd": 0.63,
+     "usd": 0
+    },
+    {
+     "ts": "2026-07-21",
+     "side": "sell",
+     "alpha": 1122.4,
+     "price_usd": 0.63,
+     "usd": 709
+    },
+    {
+     "ts": "2026-07-21",
+     "side": "sell",
+     "alpha": 1499.2,
+     "price_usd": 0.63,
+     "usd": 950
+    },
+    {
+     "ts": "2026-07-21",
+     "side": "sell",
+     "alpha": 999.5,
+     "price_usd": 0.63,
+     "usd": 634
+    },
     {
      "ts": "2026-06-26",
      "side": "sell",
@@ -805,34 +839,6 @@
      "alpha": 336.5,
      "price_usd": 0.93,
      "usd": 312
-    },
-    {
-     "ts": "2025-09-24",
-     "side": "sell",
-     "alpha": 100.0,
-     "price_usd": 0.93,
-     "usd": 93
-    },
-    {
-     "ts": "2025-09-24",
-     "side": "sell",
-     "alpha": 700.0,
-     "price_usd": 0.93,
-     "usd": 650
-    },
-    {
-     "ts": "2025-09-24",
-     "side": "sell",
-     "alpha": 700.0,
-     "price_usd": 0.93,
-     "usd": 651
-    },
-    {
-     "ts": "2025-09-23",
-     "side": "sell",
-     "alpha": 669.7,
-     "price_usd": 0.95,
-     "usd": 633
     }
    ]
   }
