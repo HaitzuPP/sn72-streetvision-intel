@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-07-23T12:41:22Z",
- "price_tao": 0.003154819,
- "price_usd": 0.6191841367668237,
- "tao_usd": 196.20900632240307,
+ "generated_at": "2026-07-23T18:34:25Z",
+ "price_tao": 0.00313278,
+ "price_usd": 0.6040544594512907,
+ "tao_usd": 192.9238834066945,
  "source": "taostats dTAO delegation events (SN72 stake add/remove) + executed USD. PnL on a cash-flow basis (rewards/emissions count as gains).",
  "wallets": [
   {
@@ -13,7 +13,7 @@
    ],
    "note": "rank #1 \u00b7 full history",
    "current_alpha": 428160.544764285,
-   "current_value_usd": 265110.21730748675,
+   "current_value_usd": 258632.2864259603,
    "n_buys": 180,
    "n_sells": 44,
    "n_trades": 224,
@@ -25,9 +25,9 @@
    "proceeds_tao": 856.4032839159997,
    "avg_buy_price_usd": 1.0641875991079728,
    "realized_pnl_usd": -42801.264969268406,
-   "unrealized_pnl_usd": -149774.51772324485,
-   "total_pnl_usd": -192575.78269251325,
-   "roi_pct": -28.319884749237982,
+   "unrealized_pnl_usd": -156252.44860477129,
+   "total_pnl_usd": -199053.7135740397,
+   "roi_pct": -29.27251884171513,
    "first_trade": "2025-08-05",
    "monthly": [
     {
@@ -346,7 +346,7 @@
    ],
    "note": "rank #2 \u00b7 full history",
    "current_alpha": 314195.295409998,
-   "current_value_usd": 194544.74276463676,
+   "current_value_usd": 189791.06933102492,
    "n_buys": 10,
    "n_sells": 0,
    "n_trades": 10,
@@ -358,9 +358,9 @@
    "proceeds_tao": 0,
    "avg_buy_price_usd": 0.8737619690207366,
    "realized_pnl_usd": 0.0,
-   "unrealized_pnl_usd": -45730.25723536324,
-   "total_pnl_usd": -45730.25723536324,
-   "roi_pct": -19.03246581432244,
+   "unrealized_pnl_usd": -50483.93066897508,
+   "total_pnl_usd": -50483.93066897508,
+   "roi_pct": -21.010896126927513,
    "first_trade": "2025-11-13",
    "monthly": [
     {
@@ -487,7 +487,7 @@
    ],
    "note": "rank #3 \u00b7 full history",
    "current_alpha": 242744.932010941,
-   "current_value_usd": 150303.8111817158,
+   "current_value_usd": 146631.15869040927,
    "n_buys": 6,
    "n_sells": 48,
    "n_trades": 54,
@@ -499,9 +499,9 @@
    "proceeds_tao": 144.490164335,
    "avg_buy_price_usd": 1.117534845831967,
    "realized_pnl_usd": -9101.395428775548,
-   "unrealized_pnl_usd": -2083.793389508646,
-   "total_pnl_usd": -11185.188818284194,
-   "roi_pct": -5.418944337836138,
+   "unrealized_pnl_usd": -5756.445880815183,
+   "total_pnl_usd": -14857.84130959073,
+   "roi_pct": -7.198252648668775,
    "first_trade": "2025-07-23",
    "monthly": [
     {
